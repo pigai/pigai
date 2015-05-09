@@ -64,7 +64,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
                <td class="f_2">${course.courseId }</td>
                <td class="f_2">${course.courseName }</td>
                <td class="f_2">${course.teacherName }</td>
-               <td class="f_2"><fmt:formatDate value="${course.time }"
+               <td class="f_2"><fmt:formatDate value="${course.createTime }"
 											pattern="yyyy-MM-dd HH:mm" /></td>
                                   	                                                   	                    								                  
                     	<td class="f_2">                                                        	                                                       
