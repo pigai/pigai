@@ -21,6 +21,7 @@ import com.pigai.util.CheckUtil;
 import com.pigai.util.JSONUtil;
 import com.pigai.util.PageModel;
 import com.pigai.vo.CourseCriteria;
+import com.pigai.vo.User;
 
 @Controller
 @RequestMapping(value = "/course")
@@ -129,6 +130,22 @@ public class CourseController extends BaseController {
 			JSONUtil.outputError("申请失败", response);
 
 		}
+	}
+	
+	@RequestMapping(value = "/studentCourse")
+	public String studentCourse(PageModel pageModel, HttpServletRequest request){
+		User user = (User)request.getSession().getAttribute("user");	
+		PageModel pageMoel = courseService.getPageModelByStudentId(pageModel, user.getUserId());
+		request.setAttribute("pageMoel",pageMoel);
+		return "course/index";
+	}
+	
+	@RequestMapping(value = "/teacherCourse")
+	public String teacherCourse(PageModel pageModel, HttpServletRequest request){
+		User user = (User)request.getSession().getAttribute("user");
+		PageModel pageMoel = courseService.getPageModelByTeacherId(pageModel, user.getUserId());
+		request.setAttribute("pageMoel", pageMoel);
+		return "course/index";
 	}
 
 }

@@ -1,7 +1,7 @@
 package com.pigai.controller;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.pigai.constant.Constants;
 import com.pigai.entity.Course;
+import com.pigai.entity.Selectcourse;
 import com.pigai.entity.Student;
+import com.pigai.service.CourseService;
+import com.pigai.service.SelectcourseService;
 import com.pigai.service.StudentService;
 import com.pigai.util.JSONUtil;
 import com.pigai.util.UserType;
@@ -26,8 +29,12 @@ public class StudentController {
 	
 	@Autowired
 	private StudentService studentService;
+	@Autowired
+	private CourseService courseService;
+	@Autowired
+	private SelectcourseService selectcourseService;
 	
-	@RequestMapping(value="/register")
+	@RequestMapping(value="/register",method=RequestMethod.GET)
 	public String register(){
 		return "student/register";
 	}
@@ -42,7 +49,7 @@ public class StudentController {
 		}
 	}
 	
-	@RequestMapping(value="/login")
+	@RequestMapping(value="/login",method=RequestMethod.GET)
 	public String login(){
 		return "student/login";
 	}
@@ -64,7 +71,7 @@ public class StudentController {
 		}		
 	}
 
-	@RequestMapping(value="/info")
+	@RequestMapping(value="/info",method=RequestMethod.GET)
 	public String center(HttpServletRequest request){
 		User user = (User)request.getSession().getAttribute("user");
 		Student student = studentService.findStudent(user.getUserNo());
@@ -72,12 +79,12 @@ public class StudentController {
 		return "student/info";
 	}
 	
-	@RequestMapping(value = "updatePassword")
+	@RequestMapping(value = "updatePassword",method=RequestMethod.GET)
 	public String updatepass(){
 		return "student/updatePassword";
 	}
-	@RequestMapping(value = "updatepassword",method=RequestMethod.POST)
-	public void updatepass(HttpServletRequest request,HttpServletResponse response,String oldpassword,String newpassword) throws IOException{
+	@RequestMapping(value = "updatePassword",method=RequestMethod.POST)
+	public void updatePass(HttpServletRequest request,HttpServletResponse response,String oldpassword,String newpassword) throws IOException{
 		User user = (User)request.getSession().getAttribute("user");
 		Student student = studentService.findStudent(user.getUserNo(),oldpassword);
 		if(student == null){
@@ -87,29 +94,23 @@ public class StudentController {
 			JSONUtil.outputSuccess(Constants.UPDATE_SECCESS, response);	
 		}				
 	}
-	@RequestMapping(value = "search")
-	public String search(HttpServletRequest request,String key){
-		System.out.println("key="+key);
-		Long totalNum = studentService.getTotalNumByKey(key);
-		request.setAttribute("totalNum",totalNum);
-		List<Course> courses = studentService.findByKeyByPage(key, 1);
-		request.setAttribute("courses", courses);
-		return "student/search";
-	}
-	@RequestMapping(value = "page/{pageNum}")
-	public String searchByPage(HttpServletRequest request,String key,@PathVariable Integer pageNum){
-		if (pageNum==null||pageNum<1)
-		 {
-		    pageNum=1;
-		 }
-		Long totalNum = studentService.getTotalNumByKey(key);
-		request.setAttribute("totalNum",totalNum);
-		List<Course> courses = studentService.findByKeyByPage(key, pageNum);
-		request.setAttribute("courses", courses);
-		return "student/search";
-	}
+
 	@RequestMapping(value = "selectCourse/{courseId}")
-	public void secelt(HttpServletRequest request,HttpServletResponse response,@PathVariable Integer courseId){
-		
+	public void secelt(HttpServletRequest request,HttpServletResponse response,@PathVariable Integer courseId) throws IOException{		
+		try {
+			User user = (User)request.getSession().getAttribute("user");
+			Student student = studentService.getStudent(user.getUserId());
+			Course course = courseService.get(courseId);
+			Selectcourse selectcourse = new Selectcourse(course, student, 0, new Date(), course.getCourseName());
+			selectcourseService.add(selectcourse);
+			JSONUtil.outputSuccess("选课成功", response);
+		} catch (Exception e) {
+			e.printStackTrace();
+			JSONUtil.outputError("选课失败", response);
+		}
+	}
+	@RequestMapping(value = "submit",method=RequestMethod.GET)
+	public String submit(){
+		return "student/submitHomework";
 	}
 }

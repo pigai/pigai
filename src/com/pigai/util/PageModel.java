@@ -12,6 +12,7 @@ public class PageModel implements java.io.Serializable {
 
 	private int totalRecord;
 
+	@SuppressWarnings("unused")
 	private int offset;
 
 	private java.lang.Object pageData;

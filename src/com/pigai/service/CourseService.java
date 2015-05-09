@@ -8,5 +8,7 @@ import com.pigai.vo.CourseCriteria;
 public interface CourseService extends BaseService<Course>{
 	
 public PageModel getPageModelByCriteria(PageModel pageModel,CourseCriteria criteria);
+public PageModel getPageModelByStudentId(PageModel pageModel,Integer studentId);
+public PageModel getPageModelByTeacherId(PageModel pageModel,Integer teacherId);
 
 }

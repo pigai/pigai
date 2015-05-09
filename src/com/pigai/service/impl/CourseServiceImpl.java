@@ -51,6 +51,32 @@ public class CourseServiceImpl extends BaseServiceImpl<Course> implements Course
 		return pageModel;
 	}
 
+	@Override
+	public PageModel getPageModelByStudentId(PageModel pageModel,Integer studentId) {
+		try{
+			pageModel.setPageData(courseDao.findCourseByStudentIdByPage(studentId, pageModel.getOffset()));
+			pageModel.setTotalRecord(courseDao.getCourseTotalNumByStudentId(studentId).intValue());
+		}catch(Exception e){
+			e.printStackTrace();
+			pageModel.setPageData(java.util.Collections.EMPTY_LIST);
+			pageModel.setTotalRecord(0);
+		}
+		return pageModel;
+	}
+
+	@Override
+	public PageModel getPageModelByTeacherId(PageModel pageModel,Integer teacherId) {
+		try{
+			pageModel.setPageData(courseDao.findCourseByTeacherIdByPage(teacherId, pageModel.getOffset()));
+			pageModel.setTotalRecord(courseDao.getCourseTotalNumByTeacherId(teacherId).intValue());
+		}catch(Exception e){
+			e.printStackTrace();
+			pageModel.setPageData(java.util.Collections.EMPTY_LIST);
+			pageModel.setTotalRecord(0);
+		}
+		return pageModel;
+	}
+
 
 
 }

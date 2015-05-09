@@ -79,7 +79,7 @@ public class CoursewareController extends BaseController {
 			int courseId=1;
 			System.out.println("开始");
 			String path = request.getSession().getServletContext()
-					.getRealPath("upload");
+					.getRealPath("/")+"upload\\";
 			 MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 			 MultipartFile file = multipartRequest.getFile("file");
 			String fileName = file.getOriginalFilename();
