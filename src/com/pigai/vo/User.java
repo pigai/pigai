@@ -4,14 +4,7 @@ import com.pigai.util.UserType;
 
 public class User {
 	
-	public User(Integer userId, String userNo, String userName,
-			UserType userType) {
-		super();
-		this.userId = userId;
-		this.userNo = userNo;
-		this.userName = userName;
-		this.userType = userType;
-	}
+
 	private Integer userId;
 	private String userNo;
 	private String userName;
@@ -21,12 +14,15 @@ public class User {
 
 	}
 	
-	public User(Integer userId, String userNo, String userName) {
+	public User(Integer userId, String userNo, String userName,
+			UserType userType) {
 		super();
 		this.userId = userId;
 		this.userNo = userNo;
 		this.userName = userName;
+		this.userType = userType;
 	}
+	
 	public Integer getUserId() {
 		return userId;
 	}

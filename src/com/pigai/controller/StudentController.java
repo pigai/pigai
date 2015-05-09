@@ -17,6 +17,7 @@ import com.pigai.entity.Course;
 import com.pigai.entity.Student;
 import com.pigai.service.StudentService;
 import com.pigai.util.JSONUtil;
+import com.pigai.util.UserType;
 import com.pigai.vo.User;
 
 @Controller
@@ -53,7 +54,7 @@ public class StudentController {
 			System.out.println(student);
 			if(student!=null){
 				JSONUtil.outputSuccess(Constants.LOGIN_SUCCESS, response);
-				User user = new User(student.getStudentNo(),student.getName());
+				User user = new User(student.getStudentId(),student.getStudentNo(),student.getName(),UserType.STUDENT);
 				request.getSession().setAttribute("user",user);
 			}else{
 				JSONUtil.outputError(Constants.PASSWORD_IS_WRONG, response);
@@ -66,7 +67,7 @@ public class StudentController {
 	@RequestMapping(value="/info")
 	public String center(HttpServletRequest request){
 		User user = (User)request.getSession().getAttribute("user");
-		Student student = studentService.findStudent(user.getUserId());
+		Student student = studentService.findStudent(user.getUserNo());
 		request.setAttribute("student", student);
 		return "student/info";
 	}
@@ -78,7 +79,7 @@ public class StudentController {
 	@RequestMapping(value = "updatepassword",method=RequestMethod.POST)
 	public void updatepass(HttpServletRequest request,HttpServletResponse response,String oldpassword,String newpassword) throws IOException{
 		User user = (User)request.getSession().getAttribute("user");
-		Student student = studentService.findStudent(user.getUserId(),oldpassword);
+		Student student = studentService.findStudent(user.getUserNo(),oldpassword);
 		if(student == null){
 			JSONUtil.outputError(Constants.PASSWORD_IS_WRONG, response);
 		}else{

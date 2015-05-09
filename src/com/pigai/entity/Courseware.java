@@ -31,7 +31,7 @@ public class Courseware implements java.io.Serializable {
 	private Course course;
 	private Fileinfo fileinfo;
 	private Date createTime;
-	private String courseName;
+	private String coursewareName;
 
 	public Courseware() {
 	}
@@ -41,7 +41,7 @@ public class Courseware implements java.io.Serializable {
 		this.course = course;
 		this.fileinfo = fileinfo;
 		this.createTime = createTime;
-		this.courseName = courseName;
+		this.coursewareName = courseName;
 	}
 
 	@Id
@@ -87,11 +87,11 @@ public class Courseware implements java.io.Serializable {
 
 	@Column(name = "courseName", nullable = false)
 	public String getCourseName() {
-		return this.courseName;
+		return this.coursewareName;
 	}
 
 	public void setCourseName(String courseName) {
-		this.courseName = courseName;
+		this.coursewareName = courseName;
 	}
 
 }
