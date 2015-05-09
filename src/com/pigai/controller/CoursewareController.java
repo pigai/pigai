@@ -24,7 +24,7 @@ import com.pigai.util.PageModel;
 import com.pigai.vo.CourseCriteria;
 
 @Controller
-@RequestMapping(value = "/course")
+@RequestMapping(value = "/courseware")
 public class CoursewareController extends BaseController {
 
 	@Autowired

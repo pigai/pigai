@@ -20,7 +20,7 @@
 	   
 	    <mapping class="com.pigai.entity.Course" /> 
 	    <mapping class="com.pigai.entity.Courseware" /> 
-	    <mapping class="com.pigai.entity.File" /> 
+	    <mapping class="com.pigai.entity.Fileinfo" /> 
 	    <mapping class="com.pigai.entity.Homework" /> 
 	    <mapping class="com.pigai.entity.Manager" /> 
 	    <mapping class="com.pigai.entity.Selectcourse" /> 
