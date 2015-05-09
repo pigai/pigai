@@ -41,7 +41,10 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 						<a href="${from_url eq null ? pageContext.request.contextPath : from_url }">&lt;&lt;返回</a></span>
 				</div>
               
-          <div class="repair_main">         
+          <div class="repair_main">      
+          
+            <div class="repair_search">                          
+                </div>   
                     <div class="att_table">
             	 <table width="100%" align="center" class="tb_list" border="0" cellspacing="0" cellpadding="0">
                  	<tbody>

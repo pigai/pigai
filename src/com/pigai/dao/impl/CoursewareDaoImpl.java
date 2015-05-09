@@ -23,7 +23,9 @@ public class CoursewareDaoImpl extends BaseDaoImpl implements CoursewareDao {
 	public List<Courseware> getCoursewaresByCourseId(Integer courseId,
 			int offset, int pageSize) throws Exception {
 		String hql = " where o.course.courseId = ? ";
-		return getResultList(entityClass, hql, null, offset, pageSize, courseId);
+
+		return getResultList(entityClass, hql, offset, pageSize, null,
+				new Object[] { courseId });
 
 	}
 
