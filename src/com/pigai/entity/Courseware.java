@@ -85,13 +85,13 @@ public class Courseware implements java.io.Serializable {
 		this.createTime = createTime;
 	}
 
-	@Column(name = "courseName", nullable = false)
-	public String getCourseName() {
+	@Column(name = "coursewareName", nullable = false)
+	public String getCoursewareName() {
 		return this.coursewareName;
 	}
 
-	public void setCourseName(String courseName) {
-		this.coursewareName = courseName;
+	public void setCoursewareName(String coursewareName) {
+		this.coursewareName = coursewareName;
 	}
 
 }
