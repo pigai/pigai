@@ -94,6 +94,7 @@ public class CourseController extends BaseController {
 			HttpServletRequest request) {
 
 		try {
+			request.setAttribute("courseId", id);
 			request.setAttribute("course", courseService.get(id));
 		} catch (Exception e) {
 

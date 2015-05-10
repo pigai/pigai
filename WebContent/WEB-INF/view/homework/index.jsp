@@ -14,11 +14,10 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>课程介绍</title>
 <%@include file="../common/head.jsp"%>
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/courseware.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/homework.js"></script>
 </head>
 <body>
 	
-
 	<div class="w1000">
 
 		<jsp:include page="../common/navigation_menu.jsp" />
@@ -35,8 +34,8 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 				<div class="repair_title">
 					<ul>
 					    <li onclick="go('${pageContext.request.contextPath }/course/detail/${courseId }')">课程详情</li>						
-						<li class="current cur" onclick="go('${pageContext.request.contextPath }/courseware/${courseId }')">课件</li>
-						<li  onclick="go('${pageContext.request.contextPath }/homework/${courseId }')">作业</li>											
+						<li onclick="go('${pageContext.request.contextPath }/courseware/${courseId }')">课件</li>
+						<li class="current cur" onclick="go('${pageContext.request.contextPath }/homework/${courseId }')">作业</li>		
 					</ul>
 					<span class="back">
 						<a href="${from_url eq null ? pageContext.request.contextPath : from_url }">&lt;&lt;返回</a></span>
@@ -50,7 +49,8 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
             	 <table width="100%" align="center" class="tb_list" border="0" cellspacing="0" cellpadding="0">
                  	<tbody>
                     	<tr>                    
-                           <td class="f_1" width="15%">课件名称</td>
+                           <td class="f_1" width="15%">作业名称</td>
+                           <td class="f_1" width="15%">截止时间</td>
                            <td class="f_1" width="15%">创建时间</td>
                            <td class="f_1" colspan="3" width="15%">操作</td>
                         </tr>
@@ -60,15 +60,20 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
               	 	<td colspan="8"><li style="color: gray;text-align: center;">没有相关信息</li></td>
               	 </tr>
               </c:if>
-              <c:forEach items="${pageModel.pageData }" var="courseware" varStatus="status">
+              <c:forEach items="${pageModel.pageData }" var="homework" varStatus="status">
                <tr<c:if test="${status.index % 2 == 1}"> class="row"</c:if>> 
-               <td class="f_2">${courseware.coursewareName }</td>             
-               <td class="f_2"><fmt:formatDate value="${courseware.createTime }"
+               <td class="f_2">${homework.name }</td>             
+                 <td class="f_2"><fmt:formatDate value="${homework.deadline }"
+											pattern="yyyy-MM-dd HH:mm" /></td>
+               <td class="f_2"><fmt:formatDate value="${homework.createTime }"
 											pattern="yyyy-MM-dd HH:mm" /></td>
                                   	                                                   	                    								                  
-                    	<td class="f_2">                                                        	                                                                                   
-                            	<a href="javascript:void(0);" onclick="delCourseware('${courseware.coursewareId}');" title="删除"><img src="${pageContext.request.contextPath }/images/del.png" width="16" height="16" alt=""/></a>                            
-                            	<a href="javascript:void(0);" onclick="goWithUrl('${pageContext.request.contextPath }/course/ware/download/${courseware.coursewareId}');">下载</a>                        	                            	
+                    	<td class="f_2">  
+                    	        <a href="javascript:void(0);"onclick="goWithUrl('${pageContext.request.contextPath }/homework/add/${courseId}?id=${homework.homeworkId}');"  title="编辑"><img src="${pageContext.request.contextPath }/images/edit.png" width="16" height="16" style="margin-right: 10px;" alt=""/></a>
+                            	<a href="javascript:void(0);" onclick="delHomework('${homework.homeworkId}');" title="删除"><img src="${pageContext.request.contextPath }/images/del.png" width="16" height="16" alt=""/></a>                            
+                            	<a href="javascript:void(0);" onclick="goWithUrl('${pageContext.request.contextPath }/homework/detail/${homework.homeworkId}');">查看</a>                                                        	                                                                                   
+                            	                            
+                            	                        	                            	
                             </td>                            
                         </tr>   
              </c:forEach>
@@ -79,7 +84,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
                 </div>
           
             <div class="pager-area" >
-        	<pg:pager url="${pageContext.request.contextPath}/courseware/${courseId }" items="${pageModel.totalRecord}"
+        	<pg:pager url="${pageContext.request.contextPath}/homework/${courseId }" items="${pageModel.totalRecord}"
 					maxIndexPages="10" export="currentPageNumber=pageNumber" maxPageItems="${pageModel.pageSize}">												
 					<pg:index>
 						<pg:first><a class="next-page" href="${pageUrl}&amp;currentIndex=${pageNumber}">首页</a></pg:first> 
@@ -102,9 +107,8 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
          </div>
             
              <div class="repair_info">
-             	<ul>
-             	
-                	<li><a href="javascript:void(0);" onclick="addCourseware('${courseId }')">添加课件</a></li>                               	                	                
+             	<ul>             	
+                	<li><a href="javascript:void(0);" onclick="goWithUrl('${pageContext.request.contextPath }/homework/add/${courseId}');"">添加作业</a></li>                               	                	                
                 </ul>
              </div> 
                    

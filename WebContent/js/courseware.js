@@ -2,8 +2,6 @@ function delCourseware(id){
 	deleteData(basePath()+"/courseware/delete/"+id);
 }
 
-
-
 function addCourseware(id){
 	artDialog.open(basePath()+"/courseware/add/"+id,{
 			id:"add",

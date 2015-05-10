@@ -34,10 +34,8 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 			<div class="repair_con mt10">
 				<div class="repair_title">
 					<ul>
-					    <li  class="current cur" onclick="go('${pageContext.request.contextPath }/course/detail/${courseId }')">课程详情</li>						
-						<li onclick="go('${pageContext.request.contextPath }/courseware/${courseId }')">课件</li>
-						<li onclick="go('${pageContext.request.contextPath }/homework/${courseId }')">作业</li>											
-					</ul>		
+						<li class="current cur">作业详情</li>					
+					</ul>
 					<span class="back">
 						<a href="${from_url eq null ? pageContext.request.contextPath : from_url }">&lt;&lt;返回</a></span>
 				</div>

@@ -323,8 +323,8 @@ function deleteData(url) {
 	if(confirm("确定删除该数据？")) {
 		deleteAjaxRequest(url, null, function(result) {
 			alert(result.message);
-			if(result.status == "true") {
-				refreshAfterTime(3000);
+			if(result.status == true || result.status == "true") {
+				refreshAfterTime(1000);
 			}
 		});
 	}
