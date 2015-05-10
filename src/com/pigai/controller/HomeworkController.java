@@ -64,7 +64,12 @@ public class HomeworkController extends BaseController {
 			Course course = courseService.get(courseId);
 			homework.setCourse(course);			
 			homework.setCreateTime(new Date());
-			homeworkService.add(homework);
+			if(null==homework.getHomeworkId()){
+				homeworkService.add(homework);	
+			}else{
+				homeworkService.update(homework);
+			}
+			
 			JSONUtil.outputSuccess("添加成功", response);
 		} catch (Exception e) {
 			e.printStackTrace();
