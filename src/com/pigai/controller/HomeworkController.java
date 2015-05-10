@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.pigai.entity.Course;
 import com.pigai.entity.Homework;
+import com.pigai.entity.Submitrecord;
 import com.pigai.service.CourseService;
 import com.pigai.service.HomeworkService;
+import com.pigai.service.SubmitrecordService;
 import com.pigai.service.TeacherService;
 import com.pigai.util.CheckUtil;
 import com.pigai.util.JSONUtil;
@@ -35,6 +37,10 @@ public class HomeworkController extends BaseController {
 	private HomeworkService homeworkService;
 
 	@Autowired
+	@Qualifier("submitrecordService")
+	private SubmitrecordService submitrecordService;
+
+	@Autowired
 	@Qualifier("teacherService")
 	private TeacherService teacherService;
 
@@ -42,13 +48,14 @@ public class HomeworkController extends BaseController {
 	public String toAdd(@PathVariable("courseId") Integer courseId,
 			HttpServletRequest request) {
 		request.setAttribute("courseId", courseId);
-		String id=request.getParameter("id");
-		if(!CheckUtil.isEmpty(id)){
-			try{
-				int homeworkId=Integer.parseInt(id);
+		String id = request.getParameter("id");
+		if (!CheckUtil.isEmpty(id)) {
+			try {
+				int homeworkId = Integer.parseInt(id);
 				request.setAttribute("homeworkId", homeworkId);
-				request.setAttribute("homework", homeworkService.get(homeworkId));
-			}catch(Exception e){
+				request.setAttribute("homework",
+						homeworkService.get(homeworkId));
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -62,14 +69,14 @@ public class HomeworkController extends BaseController {
 			Integer courseId = Integer.parseInt(request
 					.getParameter("courseId"));
 			Course course = courseService.get(courseId);
-			homework.setCourse(course);			
+			homework.setCourse(course);
 			homework.setCreateTime(new Date());
-			if(null==homework.getHomeworkId()){
-				homeworkService.add(homework);	
-			}else{
+			if (null == homework.getHomeworkId()) {
+				homeworkService.add(homework);
+			} else {
 				homeworkService.update(homework);
 			}
-			
+
 			JSONUtil.outputSuccess("添加成功", response);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -105,6 +112,48 @@ public class HomeworkController extends BaseController {
 			JSONUtil.outputError("申请失败", response);
 
 		}
+	}
+
+	@RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
+	public String toDetail(@PathVariable("id") Integer id,
+			HttpServletRequest request) {
+		try {
+			request.setAttribute("homeworkId", id);
+			request.setAttribute("homework", homeworkService.get(id));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		return "homework/detail";
+	}
+
+	@RequestMapping(value = "/submit/{id}", method = RequestMethod.GET)
+	public String toSubmit(@PathVariable("id") Integer id, PageModel pageModel,
+			HttpServletRequest request) {
+		try {
+
+			request.setAttribute("homeworkId", id);
+			pageModel = submitrecordService.getPageModelByHomeWorkId(pageModel, id);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "homework/submit_list";
+	}
+
+	@RequestMapping(value = "/grade/{id}", method = RequestMethod.POST)
+	public String doGrade(@PathVariable("id") Integer id, PageModel pageModel,
+			HttpServletRequest request, HttpServletResponse response) {
+		try {
+			int score = Integer.parseInt(request.getParameter("score"));
+			Submitrecord submitrecord = submitrecordService.get(id);
+			submitrecord.setScore(score);
+			JSONUtil.outputSuccess("打分成功", response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "homework/submit";
 	}
 
 }

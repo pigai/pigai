@@ -4,13 +4,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>入口</title>
 </head>
 <body>
 <%--     <jsp:forward page="/WEB-INF/view/student/login.jsp"/>   --%>
 <%
   response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
-  String newLocn = "student/login";
+/*   String newLocn = "student/login"; */
+	String newLocn = "home/homepage";
   response.setHeader("Location",newLocn);
 %>
 </body>

@@ -1,7 +1,14 @@
 package com.pigai.dao;
 
-import com.pigai.entity.Submitrecord;
+import java.util.List;
 
-public interface SubmitrecordDao extends BaseDao<Submitrecord>{
+import com.pigai.vo.HomeworkSubmitVo;
+
+public interface SubmitrecordDao extends BaseDao{
+
+	List<HomeworkSubmitVo> getSubmitrecordsByHomeworkId(Integer homeworkId, int offset,
+			int pageSize);
+
+	int getHomeworkCountByHomeworkId(Integer homeworkId);
 
 }

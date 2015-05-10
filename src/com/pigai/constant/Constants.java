@@ -11,5 +11,6 @@ public class Constants{
    public static final String  UPDATE_SECCESS="更新成功";
    public static final Integer  PAGE_Size=10;
    public static final String  EMPTY = "";
+   public static final Integer NOT_EXSIT= -1;//不存在常量
    
 }

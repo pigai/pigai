@@ -27,45 +27,39 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 		<div class="cont">
 			<div class="current-position">
 				<span class="font14"> 当前位置：<a href="${pageContext.request.contextPath }/">首页</a> &gt;&gt; 
-					<a href="${pageContext.request.contextPath }/course"> 课程</a> &gt;&gt; 课程介绍 </span>
+					<a href="${pageContext.request.contextPath }/course"> 课程</a> &gt;&gt; 作业介绍 </span>
 					
 			</div>
 
 			<div class="repair_con mt10">
 				<div class="repair_title">
 					<ul>
-						<li class="current cur">作业详情</li>					
-					</ul>
+					    <li  class="current cur" onclick="go('${pageContext.request.contextPath }/homework/detail/${homeworkId }')">作业详情</li>												
+						<li  onclick="go('${pageContext.request.contextPath }/homework/submit/${homeworkId }')">作业批改</li>											
+					</ul>		
 					<span class="back">
 						<a href="${from_url eq null ? pageContext.request.contextPath : from_url }">&lt;&lt;返回</a></span>
 				</div>
             <div class="repair_main">
             				
-					<c:if test="${empty id }">
-					<input type="hidden" name="courseId"  value="${id }" />
-					</c:if>
-					<input type="hidden" name="teacherId"  value="${CURRENTUSER.userId }" />
-					<input type="hidden" name="teacherName"  value="${CURRENTUSER.userNo }" />
-					<div class=" Re-cont my-repair">
-						<p class="message-help " style="margin-top: 10px;">
-							带<font style="font-size: 16px; color: red;">*</font>号的为必填项
-						</p>
-						<dl>
-						<dt>老师名称:</dt>
+					<div class=" Re-cont my-repair">		
+						<dl>	
+							<dt>作业名称 :</dt>
 							<dd>
-							<label>${CURRENTUSER.userNo }</label>
+							${homework.name }
+							</dd>
+						</dl>												
+						<dl>
+							<dt>作业介绍 :</dt>
+							<dd>
+								${homework.introduction }
 							</dd>
 						</dl>
 						
-						<dl>	
-							<dt>课程名称 :</dt>
+					   <dl>
+							<dt>满分</dt>
 							<dd>
-							${course.courseName }
-						</dl>												
-						<dl>
-							<dt>课程介绍 :</dt>
-							<dd>
-								<textarea name="courseIntr"  placeholder="请在此输入备注信息">${course.courseIntr}</textarea>
+								${homework.score}
 							</dd>
 						</dl>
 						
