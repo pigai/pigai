@@ -59,15 +59,15 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
               	 	<td colspan="8"><li style="color: gray;text-align: center;">没有相关信息</li></td>
               	 </tr>
               </c:if>
-              <c:forEach items="${pageModel.pageData }" var="course" varStatus="status">
+              <c:forEach items="${pageModel.pageData }" var="courseware" varStatus="status">
                <tr<c:if test="${status.index % 2 == 1}"> class="row"</c:if>> 
-               <td class="f_2">${courseware.name }</td>             
+               <td class="f_2">${courseware.coursewareName }</td>             
                <td class="f_2"><fmt:formatDate value="${courseware.createTime }"
 											pattern="yyyy-MM-dd HH:mm" /></td>
                                   	                                                   	                    								                  
                     	<td class="f_2">                                                        	                                                                                   
                             	<a href="javascript:void(0);" onclick="delCourseware('${courseware.coursewareId}');" title="删除"><img src="${pageContext.request.contextPath }/images/del.png" width="16" height="16" alt=""/></a>                            
-                            	<a href="javascript:void(0);" onclick="goWithUrl('${pageContext.request.contextPath }/course/ware/download/${courseware.courseId}');">下载</a>                        	                            	
+                            	<a href="javascript:void(0);" onclick="goWithUrl('${pageContext.request.contextPath }/course/ware/download/${courseware.coursewareId}');">下载</a>                        	                            	
                             </td>                            
                         </tr>   
              </c:forEach>

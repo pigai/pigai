@@ -20,24 +20,12 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 	
 
 	<div class="w1000">
-
-		<jsp:include page="../common/navigation_menu.jsp" />
-
-
+		
 		<div class="cont">
-			<div class="current-position">
-				<span class="font14"> 当前位置：<a href="${pageContext.request.contextPath }/">首页</a> &gt;&gt; 
-					<a href="${pageContext.request.contextPath }/course"> 课程</a> &gt;&gt; 课程添加 </span>
-			</div>
+		
 
 			<div class="repair_con mt10">
-				<div class="repair_title">
-					<ul>
-						<li class="current cur">课程${empty id?申请:修改 }</li>
-					</ul>
-					<span class="back">
-						<a href="${from_url eq null ? pageContext.request.contextPath : from_url }">&lt;&lt;返回</a></span>
-				</div>
+		
             <div class="repair_main">
             
 				<form id="apply" action="${pageContext.request.contextPath}/courseware/add"	method="post" enctype="multipart/form-data" >
@@ -89,40 +77,39 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 			return false;
 		}		
 		else {
-			var parm = $("#apply").serialize();
+			var parm = $("#apply").serialize();		
 			//var parm = {"coursewareName":$("#coursewareName").val(),"courseId":$("#courseId").val()};
 			  $.ajaxFileUpload
 	            (
 	                {
-	                    url: basePath()+"/courseware/add", //用于文件上传的服务器端请求地址
+	                    url: basePath()+"/courseware/add?"+parm, //用于文件上传的服务器端请求地址
 	                    secureuri: false, //是否需要安全协议，一般设置为false
-	                    fileElementId: 'file', //文件上传域的ID
-	                    data:parm,
-	                    dataType: 'json', //返回值类型 一般设置为json
+	                    fileElementId: 'file', //文件上传域的ID	                    
+	                    dataType:'json',
 	                    success:function (msg) {
-	                   	 if (msg.status == true) {
-								alert(msg.message);
-								doAfterTime(function() {
+	                    	
+	                    	if (msg.status == true) {
+	                    		alert(msg.message);
+	                    		doAfterTime(function() {
 									window.top.location.reload();
-								}, 1000);						
-							} else {
-								alert(msg.message);
-							}
-	                 },
-	                    error: function (data, status, e)//服务器响应失败处理函数
-	                    {
-	                        alert(e);
-	                    }
-	                }
-	            );
-			
+								}, 1000);
+	    					}
+	    					if (msg.status == false) {
+	    						alert(msg.message);
+	    					}	                    	                    
+				},
+				error : function(msg) {
+					alert(msg.message);
+				}
+			});
+
 			/*  $.ajax({
-                 type: "POST",
-                 dataType: "multipart/form-data",
-                 url: basePath()+"/courseware/add",
-                 data:parm,
-                 success: function (msg) {
-                	 if (msg.status == true) {
+			     type: "POST",
+			     dataType: "multipart/form-data",
+			     url: basePath()+"/courseware/add",
+			     data:parm,
+			     success: function (msg) {
+			    	 if (msg.status == true) {
 							alert(msg.message);
 							doAfterTime(function() {
 								window.top.location.reload();
@@ -130,11 +117,11 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 						} else {
 							alert(msg.message);
 						}
-                 },
-                 error: function(data) {
-                     alert("error:"+data.message);
-                  }
-             });		 */
+			     },
+			     error: function(data) {
+			         alert("error:"+data.message);
+			      }
+			 });		 */
 		}
-		}
+	}
 </script>

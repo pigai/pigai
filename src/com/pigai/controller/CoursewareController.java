@@ -73,10 +73,8 @@ public class CoursewareController extends BaseController {
 			HttpServletRequest request, HttpServletResponse response,
 			Courseware courseware) throws IOException {
 		try {
-			/*Integer courseId = Integer.parseInt(request
-					.getParameter("courseId"));*/
-			String test=request.getParameter("courseId");
-			int courseId=1;
+			Integer courseId = Integer.parseInt(request
+					.getParameter("courseId"));			
 			System.out.println("开始");
 			String path = request.getSession().getServletContext()
 					.getRealPath("/")+"upload\\";
@@ -97,8 +95,7 @@ public class CoursewareController extends BaseController {
 			System.out.println(path);
 			
 			Course course = courseService.get(courseId);
-			courseware.setCourse(course);
-			courseware.setCoursewareName("test");
+			courseware.setCourse(course);			
 			courseware.setFileinfo(fileinfo);
 			courseware.setCreateTime(new Date());
 			coursewareService.add(courseware);
