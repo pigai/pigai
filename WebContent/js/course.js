@@ -6,3 +6,4 @@ function toCoursewares(id){
 	goWithUrl(basePath()+"/courseware/"+id);
 }
 
+

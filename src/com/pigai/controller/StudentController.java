@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,10 +18,14 @@ import com.pigai.entity.Course;
 import com.pigai.entity.Selectcourse;
 import com.pigai.entity.Student;
 import com.pigai.service.CourseService;
+import com.pigai.service.CoursewareService;
+import com.pigai.service.HomeworkService;
 import com.pigai.service.SelectcourseService;
 import com.pigai.service.StudentService;
 import com.pigai.util.JSONUtil;
+import com.pigai.util.PageModel;
 import com.pigai.util.UserType;
+import com.pigai.vo.CourseCriteria;
 import com.pigai.vo.User;
 
 @Controller
@@ -32,7 +37,11 @@ public class StudentController {
 	@Autowired
 	private CourseService courseService;
 	@Autowired
+	private CoursewareService coursewareService;
+	@Autowired
 	private SelectcourseService selectcourseService;
+	@Autowired
+	private HomeworkService homeworkService;
 	
 	@RequestMapping(value="/register",method=RequestMethod.GET)
 	public String register(){
@@ -95,8 +104,8 @@ public class StudentController {
 		}				
 	}
 
-	@RequestMapping(value = "selectCourse/{courseId}")
-	public void secelt(HttpServletRequest request,HttpServletResponse response,@PathVariable Integer courseId) throws IOException{		
+	@RequestMapping(value = "/selectCourse",method=RequestMethod.POST)
+	public void secelt(HttpServletRequest request,HttpServletResponse response,Integer courseId) throws IOException{		
 		try {
 			User user = (User)request.getSession().getAttribute("user");
 			Student student = studentService.getStudent(user.getUserId());
@@ -112,5 +121,70 @@ public class StudentController {
 	@RequestMapping(value = "submit",method=RequestMethod.GET)
 	public String submit(){
 		return "student/submitHomework";
+	}
+	@RequestMapping(value = "/course")
+	public String toIndex(PageModel pageModel, HttpServletRequest request,
+			CourseCriteria criteria) {
+		request.setAttribute("pageMoel",
+				courseService.getPageModelByCriteria(pageModel, criteria));
+
+		return "student/course/index";
+	}
+	@RequestMapping(value = "/course/detail/{id}", method = RequestMethod.GET)
+	public String toDetail(@PathVariable("id") Integer id,
+			HttpServletRequest request) {
+
+		try {
+			request.setAttribute("courseId", id);
+			request.setAttribute("course", courseService.get(id));
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		return "student/course/detail";
+	}
+	@RequestMapping(value = "courseware/{id}", method = RequestMethod.GET)
+	public String toCourseware(@PathVariable("id") Integer id,
+			HttpServletRequest request, PageModel pageModel) {
+
+		try {
+			request.setAttribute("courseId", id);
+			pageModel = coursewareService.getPageModelByCourseId(pageModel, id);
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		return "student/courseware/index";
+	}
+	@RequestMapping(value = "homework/{courseId}", method = RequestMethod.GET)
+	public String toHomework(@PathVariable("courseId") Integer courseId,
+			HttpServletRequest request, PageModel pageModel) {
+
+		try {
+			request.setAttribute("courseId", courseId);
+			pageModel = homeworkService.getPageModelByCourseId(pageModel,
+					courseId);
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		return "student/homework/index";
+	}
+	@RequestMapping(value = "homework/detail/{id}", method = RequestMethod.GET)
+	public String toHomeworkDetail(@PathVariable("id") Integer id,
+			HttpServletRequest request) {
+		try {
+			request.setAttribute("homeworkId", id);
+			request.setAttribute("homework", homeworkService.get(id));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		return "student/homework/detail";
 	}
 }

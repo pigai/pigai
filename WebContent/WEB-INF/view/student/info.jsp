@@ -14,7 +14,7 @@
                 <label>学号:</label> 
             </td> 
             <td> 
-                <input id="studentNo" type="text" size="20" value="${requestScope.student.studentNo}" /> 
+                <input id="studentNo" type="text" size="20" value="${student.studentNo}" /> 
             </td> 
         </tr> 
         <tr> 
@@ -22,7 +22,7 @@
                 <label>姓名:</label> 
             </td> 
             <td> 
-                <input id="name" type="text" size="20" value="${requestScope.student.name}"/> 
+                <input id="name" type="text" size="20" value="${student.name}"/> 
             </td> 
         </tr> 
         <tr> 
@@ -30,7 +30,7 @@
                 <label>学校:</label> 
             </td> 
             <td> 
-                <input id="school" type="text" size="20" value="${requestScope.student.school}"/> 
+                <input id="school" type="text" size="20" value="${student.school}"/> 
             </td> 
         </tr>
         <tr> 
@@ -38,7 +38,7 @@
                 <label>院系:</label> 
             </td> 
             <td> 
-                <input id="college" type="text" size="20" value="${requestScope.student.college}"/> 
+                <input id="college" type="text" size="20" value="${student.college}"/> 
             </td> 
         </tr> 
     </table> 
