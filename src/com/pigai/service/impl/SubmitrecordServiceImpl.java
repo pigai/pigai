@@ -55,4 +55,36 @@ public class SubmitrecordServiceImpl extends BaseServiceImpl<Submitrecord>
 		return pageModel;		
 	}
 
+	@Override
+	public PageModel getPageModelByHomeWorkIdAndStudentId(PageModel pageModel,
+			Integer homeworkId, Integer studentId) {
+		try {
+			pageModel.setPageData(submitrecordDao.getSubmitrecordsByHomeworkIdAndStudentId(
+					homeworkId, studentId,pageModel.getOffset(), pageModel.getPageSize()));
+			pageModel.setTotalRecord(submitrecordDao
+					.getSubmitrecordsCountByHomeworkIdAndStudentId(homeworkId, studentId));
+		} catch (Exception e) {
+			e.printStackTrace();
+			pageModel.setPageData(java.util.Collections.EMPTY_LIST);
+			pageModel.setTotalRecord(0);
+		}
+		return pageModel;
+	}
+
+	@Override
+	public PageModel getPageModelByStudentId(PageModel pageModel,
+			Integer studentId) {
+		try {
+			pageModel.setPageData(submitrecordDao.getSubmitrecordsByStudentId(
+					studentId,pageModel.getOffset(), pageModel.getPageSize()));
+			pageModel.setTotalRecord(submitrecordDao
+					.getSubmitrecordsCountByStudentId(studentId));
+		} catch (Exception e) {
+			e.printStackTrace();
+			pageModel.setPageData(java.util.Collections.EMPTY_LIST);
+			pageModel.setTotalRecord(0);
+		}
+		return pageModel;
+	}
+
 }

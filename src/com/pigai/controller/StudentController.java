@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +21,7 @@ import com.pigai.service.CoursewareService;
 import com.pigai.service.HomeworkService;
 import com.pigai.service.SelectcourseService;
 import com.pigai.service.StudentService;
+import com.pigai.service.SubmitrecordService;
 import com.pigai.util.JSONUtil;
 import com.pigai.util.PageModel;
 import com.pigai.util.UserType;
@@ -42,6 +42,8 @@ public class StudentController {
 	private SelectcourseService selectcourseService;
 	@Autowired
 	private HomeworkService homeworkService;
+	@Autowired
+	private SubmitrecordService submitrecordService;
 	
 	@RequestMapping(value="/register",method=RequestMethod.GET)
 	public String register(){
@@ -186,5 +188,30 @@ public class StudentController {
 
 		}
 		return "student/homework/detail";
+	}
+	
+	@RequestMapping(value = "homework/showSubmitByHomeworkId/{homeworkId}", method = RequestMethod.GET)
+	public String showsubmit(@PathVariable("homeworkId") Integer homeworkId, PageModel pageModel,
+			HttpServletRequest request) {
+		try {
+			User user = (User)request.getSession().getAttribute("user");
+			pageModel = submitrecordService.getPageModelByHomeWorkIdAndStudentId(pageModel, homeworkId, user.getUserId());
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		return "student/homework/submit";
+	}
+	
+	@RequestMapping(value = "homework/showAllSubmit", method = RequestMethod.GET)
+	public String showsubmit(PageModel pageModel,HttpServletRequest request) {
+		try {
+			User user = (User)request.getSession().getAttribute("user");
+			pageModel = submitrecordService.getPageModelByStudentId(pageModel,user.getUserId());
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		return "student/homework/showSubmit";
 	}
 }

@@ -35,7 +35,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
             </ul>
            </div>
         
-          <form id="form" action="${pageContext.request.contextPath}/course" method="post">
+          <form id="form" action="${pageContext.request.contextPath}/student/course" method="post">
           <div class="repair_main">
               <div class="repair_search">         
                     课程名称：<input type="text" name="courseName" value="${courseCriteria.courseName }" class="repair_text"/>
