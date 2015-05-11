@@ -20,6 +20,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/iframeTools.source.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/plugin/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/ajaxfileupload.js"></script>
+<script type="text/javascript" src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
 <script type="text/javascript">
 	function showStu(){
 		$("#stuEn").removeClass("titleLeft");
@@ -48,6 +49,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 
 	<div id="home_nav"><img src="${pageContext.request.contextPath }/images/title.png"/></div>
 
+    <div id="contentBox">
 	<div id="welcome"><img src="${pageContext.request.contextPath }/images/4个人.png"/></div>
 
 	<div id="logPanel">
@@ -58,16 +60,18 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 		<div id="studentEnter" class="show">
 		<label>学号:&nbsp;</label><input id="studentNo" type="text" size="20" ></input> <br />
 		<label>密码:&nbsp;</label><input id="stuPassword" type="password" size="20" ></input> <br />
-		<input type="button"  id="login" value="&nbsp;&nbsp;登&nbsp;录&nbsp;&nbsp;" ></input>&nbsp;&nbsp;
-		<input type="button"  id="register" value="&nbsp;&nbsp;注&nbsp;册&nbsp;&nbsp;" ></input>
+		<input type="button"  id="stulogin" value="&nbsp;&nbsp;登&nbsp;录&nbsp;&nbsp;" ></input>&nbsp;&nbsp;
+		<input type="button"  id="sturegister" value="&nbsp;&nbsp;注&nbsp;册&nbsp;&nbsp;" ></input>
 		</div>		
 		<div id="teacherEnter" class="hide">		
-		<label>账号:&nbsp;</label><input id="teacherNo" type="text" size="20" > </input><br />
+		<label>工号:&nbsp;</label><input id="teacherNo" type="text" size="20" > </input><br />
 		<label>密码:&nbsp;</label><input id="teaPassword" type="password" size="20" ></input> <br />
-		<input type="button"  id="login" value="&nbsp;&nbsp;登&nbsp;录&nbsp;&nbsp;" ></input>		
+		<input type="button"  id="tealogin" value="&nbsp;&nbsp;登&nbsp;录&nbsp;&nbsp;" ></input>&nbsp;&nbsp;
+		<input type="button"  id="tearegister" value="&nbsp;&nbsp;注&nbsp;册&nbsp;&nbsp;" ></input>	
 		</div>
 	</div>	
 	<div class="clear"></div>
+	</div>
 </div>	
 
 </body>
