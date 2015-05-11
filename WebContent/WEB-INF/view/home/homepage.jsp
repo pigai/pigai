@@ -56,14 +56,14 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 		<div id="teaEn" class="titleLeft" onclick="showTea()"><span>教师入口</span></div>
 		<div class="clear"></div>		
 		<div id="studentEnter" class="show">
-		<label>&nbsp;&nbsp;&nbsp;学&nbsp;号:&nbsp;</label><input id="studentNo" type="text" size="20" ></input> <br />
-		<label>&nbsp;&nbsp;&nbsp;密&nbsp;码:&nbsp;</label><input id="stuPassword" type="password" size="20" ></input> <br />
+		<label>学号:&nbsp;</label><input id="studentNo" type="text" size="20" ></input> <br />
+		<label>密码:&nbsp;</label><input id="stuPassword" type="password" size="20" ></input> <br />
 		<input type="button"  id="login" value="&nbsp;&nbsp;登&nbsp;录&nbsp;&nbsp;" ></input>&nbsp;&nbsp;
 		<input type="button"  id="register" value="&nbsp;&nbsp;注&nbsp;册&nbsp;&nbsp;" ></input>
 		</div>		
 		<div id="teacherEnter" class="hide">		
-		<label>教师编号:&nbsp;</label><input id="teacherNo" type="text" size="20" > </input><br />
-		<label>密&nbsp;&nbsp;&nbsp;&nbsp;码:&nbsp;</label><input id="teaPassword" type="password" size="20" ></input> <br />
+		<label>账号:&nbsp;</label><input id="teacherNo" type="text" size="20" > </input><br />
+		<label>密码:&nbsp;</label><input id="teaPassword" type="password" size="20" ></input> <br />
 		<input type="button"  id="login" value="&nbsp;&nbsp;登&nbsp;录&nbsp;&nbsp;" ></input>		
 		</div>
 	</div>	
