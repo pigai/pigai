@@ -17,49 +17,6 @@ table {
 /*---------------------homepage  css---------------------*/
 #outerwrap{
 	width:100%;
-<<<<<<< HEAD
-	height:90%;
-	position:absolute;
-	background: #BFEFFF;	
-}
-#home_nav{
-	width:100%;
-	height:100px;
-    background: #fff;
-}
-
-#home_nav img{
-    margin-left:100px;	
-    margin-top:10px;
-}
-#welcome{
-	width:500px;
-	margin-left:150px;
-	float:left;
-}
-#logPanel{
-	border:1px solid red;
-	float:left;
-	width: 400px;
-	height:300px;
-	margin:80px 0 0 100px;
-
-}
-#stuEn,#teaEn{
-	width:200px;
-	height:60px;
-	text-align:center;
-	font-size:24px;
-}
-#stuEn{
-	float:left;
-}
-#teaEn{
-	float:right;
-}
-#clear{
-	clear:both;
-=======
 	height:600px;
 	position:absolute;
 	background: #BFEFFF;	
@@ -150,7 +107,6 @@ table {
 }
 .titleLeft{
 	background:#e7e7e9;
->>>>>>> branch 'master' of https://github.com/pigai/pigai
 }
 /*---------------------attendance css---------------------*/
 .att_con, .repair_con {
