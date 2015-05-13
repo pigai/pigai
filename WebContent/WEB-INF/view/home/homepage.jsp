@@ -42,6 +42,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 		$("#studentEnter").removeClass("show");
 		$("#studentEnter").addClass("hide");
 	}
+	
 </script>
 </head>
 <body>

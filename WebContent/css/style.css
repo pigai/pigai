@@ -113,8 +113,9 @@ table {
 	width:1000px;
 	margin-left:150px; 
 }
+
 /*---------------------student register css--------------*/
-#studentlogPanel{
+#studentlogPanel,#teacherlogPanel{
 	width: 400px;
 	height:400px;
 	margin:60px 0 0 100px;	
@@ -127,13 +128,13 @@ table {
 	line-height:60px;
 	background:#e7e7e9;
 }
-#studentlogPanel input{
+#studentlogPanel input,#teacherlogPanel input{
 	width:180px;
 	height: 35px;
 	border: 1px solid #dfdfdf;
 	margin:10px 0 0 0;
 }
-#studentlogPanel input:focus{
+#studentlogPanel input:focus,#teacherlogPanel input:focus{
 	border-color:#78BAED;  
 }
 

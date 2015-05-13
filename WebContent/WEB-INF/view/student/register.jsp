@@ -29,79 +29,19 @@
 
 	<div id="studentlogPanel">
 		<div id="panelTitle"><span>学生注册</span></div>
+			
 		<label>学号:</label><input id="studentNo" type="text" size="20" /><br/> 
-		<label>姓名:</label><input id="name" type="text" size="20" /> <br/> 
-		<label>学校:</label><input id="school" type="text" size="20" /> <br/> 
-		<label>院系:</label><input id="college" type="text" size="20" /> <br/> 
-		<label>密码:</label><input id="password" type="text" size="20" /> <br/> 
-		<label>确认密码:</label><input id="password_again" type="text" size="20" /> <br/> 
+		<label>姓名:</label><input id="name" type="text" size="20" /><br/> 
+		<label>学校:</label><input id="school" type="text" size="20" /><br/> 
+		<label>院系:</label><input id="college" type="text" size="20" /><br/> 
+		<label>密码:</label><input id="password" type="text" size="20" /><br/> 
+		<label>确认密码:</label><input id="password_again" type="text" size="20" style="margin-right:38px" /><br/> 		
+		
 		<input type="submit" id="register" value="&nbsp;&nbsp;注&nbsp;册&nbsp;&nbsp;" style="width:100px">
 	</div>	
 	<div class="clear"></div>
 	</div>
 </div>	
-
-
-
-
-
-<!-- <div id="Register" style="text-align: center"> 
-	<table border="0" cellpadding="3" cellspacing="3" style="margin: 0 auto;"> 
-        <tr> 
-            <td style="text-align: right; padding: 10px"> 
-                <label>学号:</label> 
-            </td> 
-            <td> 
-                <input id="studentNo" type="text" size="20" /> 
-            </td> 
-        </tr> 
-        <tr> 
-            <td style="text-align: right; padding: 10px"> 
-                <label>姓名:</label> 
-            </td> 
-            <td> 
-                <input id="name" type="text" size="20" /> 
-            </td> 
-        </tr> 
-        <tr> 
-            <td style="text-align: right; padding: 10px"> 
-                <label>学校:</label> 
-            </td> 
-            <td> 
-                <input id="school" type="text" size="20" /> 
-            </td> 
-        </tr>
-        <tr> 
-            <td style="text-align: right; padding: 10px"> 
-                <label>院系:</label> 
-            </td> 
-            <td> 
-                <input id="college" type="text" size="20" /> 
-            </td> 
-        </tr>
-        <tr> 
-            <td style="text-align: right; padding: 10px"> 
-                <label>密码:</label> 
-            </td> 
-            <td> 
-                <input id="password" type="text" size="20" /> 
-            </td> 
-        </tr>
-        <tr> 
-            <td style="text-align: right; padding: 10px"> 
-                <label>再次输入密码:</label> 
-            </td> 
-            <td> 
-                <input id="password_again" type="text" size="20" /> 
-            </td> 
-        </tr>
-        <tr align="right"> 
-            <td colspan="2"> 
-                <input type="submit" id="register" value="&nbsp;&nbsp;住&nbsp;册&nbsp;&nbsp;" style="margin-right: 50px">&nbsp;         
-            </td> 
-        </tr> 
-    </table> 
-</div>  -->
 
 <script type="text/javascript" src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
 <script type="text/javascript">
