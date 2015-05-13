@@ -25,7 +25,7 @@ import com.pigai.util.JSONUtil;
 import com.pigai.util.PageModel;
 
 @Controller
-@RequestMapping(value = "/homework")
+@RequestMapping(value = "/teacher/homework")
 public class HomeworkController extends BaseController {
 
 	@Autowired
@@ -59,7 +59,7 @@ public class HomeworkController extends BaseController {
 				e.printStackTrace();
 			}
 		}
-		return "homework/add";
+		return "teacher/homework/add";
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -98,7 +98,7 @@ public class HomeworkController extends BaseController {
 
 			e.printStackTrace();
 		}
-		return "homework/index";
+		return "teacher/homework/index";
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
@@ -125,7 +125,7 @@ public class HomeworkController extends BaseController {
 			e.printStackTrace();
 
 		}
-		return "homework/detail";
+		return "teacher/homework/detail";
 	}
 
 	@RequestMapping(value = "/submit/{id}", method = RequestMethod.GET)
@@ -139,7 +139,7 @@ public class HomeworkController extends BaseController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "homework/submit_list";
+		return "teacher/homework/submit_list";
 	}
 
 	@RequestMapping(value = "/grade/{id}", method = RequestMethod.POST)
@@ -153,7 +153,7 @@ public class HomeworkController extends BaseController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "homework/submit";
+		return "teacher/homework/submit";
 	}
 
 }

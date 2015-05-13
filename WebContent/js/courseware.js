@@ -1,9 +1,9 @@
 function delCourseware(id){
-	deleteData(basePath()+"/courseware/delete/"+id);
+	deleteData(basePath()+"/teacher/courseware/delete/"+id);
 }
 
 function addCourseware(id){
-	artDialog.open(basePath()+"/courseware/add/"+id,{
+	artDialog.open(basePath()+"/teacher/courseware/add/"+id,{
 			id:"add",
 			title:"添加课件",
 		    padding: 0,

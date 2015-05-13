@@ -1,9 +1,9 @@
 function delCourse(id){
-	deleteData(basePath()+"/course/delete/"+id);
+	deleteData(basePath()+"/teacher/course/delete/"+id);
 }
 
 function toCoursewares(id){
-	goWithUrl(basePath()+"/courseware/"+id);
+	goWithUrl(basePath()+"/teacher/courseware/"+id);
 }
 
 

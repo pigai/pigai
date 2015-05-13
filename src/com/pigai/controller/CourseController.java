@@ -24,7 +24,7 @@ import com.pigai.vo.CourseCriteria;
 import com.pigai.vo.User;
 
 @Controller
-@RequestMapping(value = "/course")
+@RequestMapping(value = "/teacher/course")
 public class CourseController extends BaseController {
 
 	@Autowired
@@ -45,7 +45,7 @@ public class CourseController extends BaseController {
 		request.setAttribute("pageMoel",
 				courseService.getPageModelByCriteria(pageModel, criteria));
 
-		return "course/index";
+		return "teacher/course/index";
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -63,7 +63,7 @@ public class CourseController extends BaseController {
 			}
 		}
 
-		return "course/add";
+		return "teacher/course/add";
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -101,7 +101,7 @@ public class CourseController extends BaseController {
 			e.printStackTrace();
 		}
 
-		return "course/detail";
+		return "teacher/course/detail";
 	}
 
 	@RequestMapping(value = "/ware/{id}", method = RequestMethod.GET)
@@ -117,7 +117,7 @@ public class CourseController extends BaseController {
 			e.printStackTrace();
 		}
 
-		return "courseware/index";
+		return "teacher/courseware/index";
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
@@ -133,20 +133,20 @@ public class CourseController extends BaseController {
 		}
 	}
 	
-	@RequestMapping(value = "/studentCourse")
+	/*@RequestMapping(value = "/studentCourse")
 	public String studentCourse(PageModel pageModel, HttpServletRequest request){
 		User user = (User)request.getSession().getAttribute("user");	
 		PageModel pageMoel = courseService.getPageModelByStudentId(pageModel, user.getUserId());
 		request.setAttribute("pageMoel",pageMoel);
-		return "course/index";
+		return "teacher/course/index";
 	}
-	
+	*/
 	@RequestMapping(value = "/teacherCourse")
 	public String teacherCourse(PageModel pageModel, HttpServletRequest request){
 		User user = (User)request.getSession().getAttribute("user");
 		PageModel pageMoel = courseService.getPageModelByTeacherId(pageModel, user.getUserId());
 		request.setAttribute("pageMoel", pageMoel);
-		return "course/index";
+		return "teacher/course/index";
 	}
 
 }

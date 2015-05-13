@@ -28,7 +28,7 @@ import com.pigai.util.PageModel;
 import com.pigai.vo.CourseCriteria;
 
 @Controller
-@RequestMapping(value = "/courseware")
+@RequestMapping(value = "/teacher/courseware")
 public class CoursewareController extends BaseController {
 
 	@Autowired
@@ -53,7 +53,7 @@ public class CoursewareController extends BaseController {
 		request.setAttribute("pageMoel",
 				courseService.getPageModelByCriteria(pageModel, criteria));
 
-		return "course/index";
+		return "teacher/course/index";
 	}
 
 	@RequestMapping(value = "/add/{courseId}", method = RequestMethod.GET)
@@ -61,7 +61,7 @@ public class CoursewareController extends BaseController {
 			HttpServletRequest request) {
 		request.setAttribute("courseId", courseId);
 
-		return "courseware/add";
+		return "teacher/courseware/add";
 	}
 
 
@@ -117,7 +117,7 @@ public class CoursewareController extends BaseController {
 			e.printStackTrace();
 		}
 
-		return "courseware/index";
+		return "teacher/courseware/index";
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)

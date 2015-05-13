@@ -1,5 +1,5 @@
 function delHomework(id){
-	deleteData(basePath()+"/homework/delete/"+id);
+	deleteData(basePath()+"/teacher/homework/delete/"+id);
 }
 
 
