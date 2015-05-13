@@ -76,8 +76,8 @@ $().ready(function () {
 				data: data,
 				success: function (msg) {
 					if (msg.status == true) {
-						location.href = "login"; 
 						alert(msg.message);
+						location.href = "../home/homepage"; 
 					}
 					if (msg.status == false) {
 						alert(msg.message);

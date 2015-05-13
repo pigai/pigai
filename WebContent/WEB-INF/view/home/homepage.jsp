@@ -42,6 +42,61 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 		$("#studentEnter").removeClass("show");
 		$("#studentEnter").addClass("hide");
 	}
+	function register(){
+		goWithUrl(basePath()+"/student/register");
+	}
+	$().ready(function () {
+		$('#stulogin').click(function () {
+			var studentNo = $('#studentNo').val();
+			var password = $('#stuPassword').val();
+			if (studentNo == "" || password == "") {			
+				alert("学名或密码不能为空！");
+			}
+			else {
+				var data = {"studentNo":studentNo,"password":password};
+				$.ajax({
+					type: "post",
+					url: "../student/login",
+					data: data,
+					success: function (msg) {
+						if (msg.status == true) {
+							location.href = "../student/course"; //如果登录成功则跳到管理界面
+							alert(msg.message);
+						}
+						if (msg.status == false) {
+							alert(msg.message);
+						}
+					},
+			});
+		}
+	});
+		$('#tealogin').click(function () {
+			var studentNo = $('#teacherNo').val();
+			var password = $('#teaPassword').val();
+			if (studentNo == "" || password == "") {			
+				alert("工号或密码不能为空！");
+			}
+			else {
+				var data = {"teacherNo":studentNo,"password":password};
+				$.ajax({
+					type: "post",
+					url: "../teacher/login",
+					data: data,
+					success: function (msg) {
+						if (msg.status == true) {
+							location.href = "../course"; //如果登录成功则跳到管理界面
+							alert(msg.message);
+						}
+						if (msg.status == false) {
+							alert(msg.message);
+						}
+					},
+			});
+		}
+	});
+	
+	
+	});
 	
 </script>
 </head>
@@ -62,13 +117,13 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 		<label>学号:&nbsp;</label><input id="studentNo" type="text" size="20" ></input> <br />
 		<label>密码:&nbsp;</label><input id="stuPassword" type="password" size="20" ></input> <br />
 		<input type="button"  id="stulogin" value="&nbsp;&nbsp;登&nbsp;录&nbsp;&nbsp;" ></input>&nbsp;&nbsp;
-		<input type="button"  id="sturegister" value="&nbsp;&nbsp;注&nbsp;册&nbsp;&nbsp;" ></input>
+		<input type="button"  id="sturegister" value="&nbsp;&nbsp;注&nbsp;册&nbsp;&nbsp;" onclick = "register()" ></input>
 		</div>		
 		<div id="teacherEnter" class="hide">		
 		<label>工号:&nbsp;</label><input id="teacherNo" type="text" size="20" > </input><br />
 		<label>密码:&nbsp;</label><input id="teaPassword" type="password" size="20" ></input> <br />
 		<input type="button"  id="tealogin" value="&nbsp;&nbsp;登&nbsp;录&nbsp;&nbsp;" ></input>&nbsp;&nbsp;
-		<input type="button"  id="tearegister" value="&nbsp;&nbsp;注&nbsp;册&nbsp;&nbsp;" ></input>	
+		<!-- <input type="button"  id="tearegister" value="&nbsp;&nbsp;注&nbsp;册&nbsp;&nbsp;" ></input>	 -->
 		</div>
 	</div>	
 	<div class="clear"></div>
