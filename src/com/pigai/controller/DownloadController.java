@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-@RequestMapping("/download/")
+@RequestMapping("/download/{fileId}")
 public class DownloadController 
 {
 	 @RequestMapping("/{fileName:.+}")  

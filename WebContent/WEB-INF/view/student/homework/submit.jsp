@@ -12,101 +12,102 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>作业提交情况</title>
+<title>添加课程</title>
 <%@include file="../../common/head.jsp"%>
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/homework.js"></script>
 </head>
 <body>
 	
+
 	<div class="w1000">
-
-		<jsp:include page="../../common/navigation_menu.jsp" />
-
-
+		
 		<div class="cont">
-			<div class="current-position">
-				<span class="font14"> 当前位置：<a href="${pageContext.request.contextPath }/">首页</a> &gt;&gt; 
-					<a href="${pageContext.request.contextPath }/student/course"> 课程</a> &gt;&gt; 课件 </span>
-					
-			</div>
+		
 
 			<div class="repair_con mt10">
-				<div class="repair_title">
-					<ul>
-					    <li  onclick="go('${pageContext.request.contextPath }/student/homework/detail/${homeworkId }')">作业详情</li>	
-					    <li class="current cur"  onclick="go('${pageContext.request.contextPath }/student/homework/showSubmitByHomeworkId/${homeworkId }')">作业提交情况</li>		
-					</ul>
-					<span class="back">
-						<a href="${from_url eq null ? pageContext.request.contextPath : from_url }">&lt;&lt;返回</a></span>
-				</div>
-              
-          <div class="repair_main">      
-          
-            <div class="repair_search">                          
-                </div>   
-                    <div class="att_table">
-            	 <table width="100%" align="center" class="tb_list" border="0" cellspacing="0" cellpadding="0">
-                 	<tbody>
-                    	<tr>                    
-                           <td class="f_1" width="15%">作业名称</td>
-                           <td class="f_1" width="15%">提交时间</td>
-                           <td class="f_1" width="15%">是否被批改</td>
-                           <td class="f_1" width="15%">所得分数</td>
-                           <td class="f_1" colspan="3" width="15%">操作</td>
-                        </tr>
-                        
-                      <c:if test="${empty pageModel.pageData }">
-              	 <tr class="select" >
-              	 	<td colspan="8"><li style="color: gray;text-align: center;">没有相关信息</li></td>
-              	 </tr>
-              </c:if>
-              <c:forEach items="${pageModel.pageData }" var="submitrecord" varStatus="status">
-              	 <tr<c:if test="${status.index % 2 == 1}"> class="row"</c:if>> 
-               		<td class="f_2">${submitrecord.homeworkName }</td>           
-              		 <td class="f_2"><fmt:formatDate value="${submitrecord.createTime }"
-											pattern="yyyy-MM-dd HH:mm" /></td>
-					 <td class="f_2"><c:if test="${submitrecord.correct ==false}">未批改</c:if>
-					 <c:if test="${submitrecord.correct ==true}">已批改</c:if></td>						
-              		 <td class="f_2">${submitrecord.score }</td>    
-              		 <td class="f_2">                                                        	                                                                                 	                          
-                     	<a href="javascript:void(0);" onclick="goWithUrl('${pageContext.request.contextPath }/download/${submitrecord.fileId}');">下载</a>                            	                            	
-                     </td>               	                                                   	                    								                  
-				</tr>   
-             </c:forEach>
-                                             
-                    </tbody>
-                 </table>
-            </div>
-                </div>
-          
-            <div class="pager-area" >
-        	<pg:pager url="${pageContext.request.contextPath}/homework/${courseId }" items="${pageModel.totalRecord}"
-					maxIndexPages="10" export="currentPageNumber=pageNumber" maxPageItems="${pageModel.pageSize}">												
-					<pg:index>
-						<pg:first><a class="next-page" href="${pageUrl}&amp;currentIndex=${pageNumber}">首页</a></pg:first> 
-						<pg:prev><a  class="prev-page" href="${pageUrl }&amp;currentIndex=${pageNumber}">前页</a></pg:prev> 
-						<pg:pages>
-						<c:choose>
-						<c:when test="${pageNumber eq currentPageNumber }">
-						<span class="page-num current-page">${pageNumber }</span>						   							
-							</c:when>
-							<c:otherwise> 
-							<a class="page-num" href="${pageUrl }&amp;currentIndex=${pageNumber }">${pageNumber}</a> 
-						</c:otherwise> 
-					</c:choose> 
-					</pg:pages> 
-							<pg:next><a class="next-page" href="${pageUrl }&amp;currentIndex=${pageNumber }">下页</a></pg:next> 
-							<pg:last><a class="next-page" href="${pageUrl }&amp;currentIndex=${pageNumber }">尾页</a>		
-							</pg:last>
-					</pg:index>
-			</pg:pager>
-         </div>
-                   
-     </div>
-    </div>
-           
-        <jsp:include page="../../common/footer.jsp" ></jsp:include>
-    </div>
- 
+		
+            <div class="repair_main">
+            
+				<form id="apply" action="${pageContext.request.contextPath}/student/homework/submit"method="post" enctype="multipart/form-data" >
+					
+					<input type="hidden" name="courseId" id="courseId"  value="${courseId }" />					
+					
+					<div class=" Re-cont my-repair">
+						<p class="message-help " style="margin-top: 10px;">
+							带<font style="font-size: 16px; color: red;">*</font>号的为必填项
+						</p>																				
+								<dl>	
+							<dt>*选择文件 :</dt>
+							<dd>
+							<input type="file" id="file" name="file"/> 
+							</dd>
+						</dl>															 																		
+						
+						<div class="submit-btn" style="margin-left: 86px;">
+							<a href="javascript:void(0);" onclick="applySubmit();">提交</a>
+						</div>
+						</div>
+				</form>
+			
+		</div>
+		</div>
+	</div>
+	<jsp:include page="../../common/footer.jsp" />
+</div>
+
 </body>
 </html>
+<script>
+	function applySubmit() {
+		if(!stringNotNull($("#file").val())){
+			alert("请选择文件");
+			return false;
+		}else {
+			var parm = $("#apply").serialize();		
+			//var parm = {"coursewareName":$("#coursewareName").val(),"courseId":$("#courseId").val()};
+			  $.ajaxFileUpload
+	            (
+	                {
+	                    url: basePath()+"/student/homework/submit?"+parm, //用于文件上传的服务器端请求地址
+	                    secureuri: false, //是否需要安全协议，一般设置为false
+	                    fileElementId: 'file', //文件上传域的ID	                    
+	                    dataType:'json',
+	                    success:function (msg) {
+	                    	
+	                    	if (msg.status == true) {
+	                    		alert(msg.message);
+	                    		doAfterTime(function() {
+									window.top.location.reload();
+								}, 1000);
+	    					}
+	    					if (msg.status == false) {
+	    						alert(msg.message);
+	    					}	                    	                    
+				},
+				error : function(msg) {
+					alert(msg.message);
+				}
+			});
+
+			/*  $.ajax({
+			     type: "POST",
+			     dataType: "multipart/form-data",
+			     url: basePath()+"/courseware/add",
+			     data:parm,
+			     success: function (msg) {
+			    	 if (msg.status == true) {
+							alert(msg.message);
+							doAfterTime(function() {
+								window.top.location.reload();
+							}, 1000);						
+						} else {
+							alert(msg.message);
+						}
+			     },
+			     error: function(data) {
+			         alert("error:"+data.message);
+			      }
+			 });		 */
+		}
+	}
+</script>

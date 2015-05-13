@@ -84,7 +84,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 					data: data,
 					success: function (msg) {
 						if (msg.status == true) {
-							location.href = "../course"; //如果登录成功则跳到管理界面
+							location.href = "../teacher/course"; //如果登录成功则跳到管理界面
 							alert(msg.message);
 						}
 						if (msg.status == false) {

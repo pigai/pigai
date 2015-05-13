@@ -14,7 +14,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>作业详情</title>
 <%@include file="../../common/head.jsp"%>
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/course.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/homework.js"></script>
 </head>
 <body>
 	
@@ -66,7 +66,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 						</div>				
 								<div class="repair_info">
              			<ul>
-	             			<li><a href="javascript:void(0);" onclick="addCourseware('${courseId }')">上传作业</a></li>                               	                	                
+	             			<li><a href="javascript:void(0);" onclick="submitHomework('${homework.homeworkId }')">上传作业</a></li>                               	                	                
                 		</ul>
              		</div>
 			

@@ -1,5 +1,6 @@
 package com.pigai.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 
@@ -11,13 +12,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.pigai.constant.Constants;
 import com.pigai.entity.Course;
+import com.pigai.entity.Fileinfo;
+import com.pigai.entity.Homework;
 import com.pigai.entity.Selectcourse;
 import com.pigai.entity.Student;
+import com.pigai.entity.Submitrecord;
 import com.pigai.service.CourseService;
 import com.pigai.service.CoursewareService;
+import com.pigai.service.FileinfoService;
 import com.pigai.service.HomeworkService;
 import com.pigai.service.SelectcourseService;
 import com.pigai.service.StudentService;
@@ -44,6 +51,8 @@ public class StudentController {
 	private HomeworkService homeworkService;
 	@Autowired
 	private SubmitrecordService submitrecordService;
+	@Autowired
+	private FileinfoService fileinfoService;
 	
 	@RequestMapping(value="/register",method=RequestMethod.GET)
 	public String register(){
@@ -120,10 +129,7 @@ public class StudentController {
 			JSONUtil.outputError("选课失败", response);
 		}
 	}
-	@RequestMapping(value = "submit",method=RequestMethod.GET)
-	public String submit(){
-		return "student/submitHomework";
-	}
+
 	@RequestMapping(value = "/course")
 	public String toIndex(PageModel pageModel, HttpServletRequest request,
 			CourseCriteria criteria) {
@@ -189,6 +195,56 @@ public class StudentController {
 		}
 		return "student/homework/detail";
 	}
+	@RequestMapping(value = "homework/submit/{homeworkId}",method=RequestMethod.GET)
+	public String submit(@PathVariable("homeworkId") Integer homeworkId,
+			HttpServletRequest request){
+		request.setAttribute("homeworkId", homeworkId);
+		return "student/submitHomework/submit";
+	}
+	
+	@RequestMapping(value = "homework/submit", method = RequestMethod.POST)
+	public void doSubmit(			
+			HttpServletRequest request, HttpServletResponse response,
+			Submitrecord submitrecord) throws IOException {
+		try {
+			Integer homeworkId = Integer.parseInt(request
+					.getParameter("homeworkId"));			
+			System.out.println("开始");
+			String path = request.getSession().getServletContext()
+					.getRealPath("/")+"upload\\";
+			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+			MultipartFile file = multipartRequest.getFile("file");
+			String fileName = file.getOriginalFilename();
+			Fileinfo fileinfo = new Fileinfo();
+			fileinfo.setFileName(fileName);
+			fileinfo.setFilePath("upload/"+fileName);
+			fileinfo.setCreateTime(new Date());
+			File targetFile = new File(path, fileName);
+			if (!targetFile.exists()) {
+				targetFile.mkdirs();
+			}
+			// 保存
+			file.transferTo(targetFile);
+			fileinfoService.add(fileinfo);
+			System.out.println(path);
+			
+			Homework homework = homeworkService.get(homeworkId);	
+			User user = (User)request.getSession().getAttribute("user");
+			Student student = studentService.getStudent(user.getUserId());
+			submitrecord.setHomework(homework);
+			submitrecord.setFileinfo(fileinfo);
+			submitrecord.setCreateTime(new Date());
+			submitrecord.setCorrect(false);
+			submitrecord.setStudent(student);
+			submitrecord.setStudentName(student.getName());			
+			submitrecordService.add(submitrecord);
+			JSONUtil.outputSuccess("添加成功", response);
+		} catch (Exception e) {
+			e.printStackTrace();
+			JSONUtil.outputError("添加失败", response);
+
+		}
+	}
 	
 	@RequestMapping(value = "homework/showSubmitByHomeworkId/{homeworkId}", method = RequestMethod.GET)
 	public String showsubmit(@PathVariable("homeworkId") Integer homeworkId, PageModel pageModel,
@@ -200,7 +256,7 @@ public class StudentController {
 			e.printStackTrace();
 
 		}
-		return "student/homework/submit";
+		return "student/homework/submitInfo";
 	}
 	
 	@RequestMapping(value = "homework/showAllSubmit", method = RequestMethod.GET)
