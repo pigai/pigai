@@ -13,7 +13,10 @@ import org.springframework.util.StringUtils;
 import com.pigai.constant.Constants;
 import com.pigai.dao.CourseDao;
 import com.pigai.entity.Course;
+import com.pigai.entity.Selectcourse;
+import com.pigai.entity.Student;
 import com.pigai.vo.CourseCriteria;
+import com.pigai.vo.StudentCourseGradeListVo;
 
 @Repository("courseDao")
 public class CourseDaoImpl extends BaseDaoImpl<Course> implements CourseDao {
@@ -66,21 +69,18 @@ public class CourseDaoImpl extends BaseDaoImpl<Course> implements CourseDao {
 	@Override
 	public Long getCourseTotalNumByStudentId(final Integer studentId) {
 		{
-			return getHibernateTemplate().execute
-					(
-					   new HibernateCallback<Long>()
-					   {
-						  @Override
-						  public Long doInHibernate(Session session) throws HibernateException
-						  {
-							  String hql="select count(distinct c) from Course c,Selectcourse sc where c.courseId = sc.course and sc.student=:studentId";
-							  Query query=session.createQuery(hql);
-							  query.setCacheable(true);
-							  query.setInteger("studentId", studentId);
-							  return (Long) query.uniqueResult();
-						  }
-					   }
-				    );
+			return getHibernateTemplate().execute(
+					new HibernateCallback<Long>() {
+						@Override
+						public Long doInHibernate(Session session)
+								throws HibernateException {
+							String hql = "select count(distinct c) from Course c,Selectcourse sc where c.courseId = sc.course and sc.student=:studentId";
+							Query query = session.createQuery(hql);
+							query.setCacheable(true);
+							query.setInteger("studentId", studentId);
+							return (Long) query.uniqueResult();
+						}
+					});
 		}
 	}
 
@@ -88,43 +88,38 @@ public class CourseDaoImpl extends BaseDaoImpl<Course> implements CourseDao {
 	@SuppressWarnings("unchecked")
 	public List<Course> findCourseByStudentIdByPage(final Integer studentId,
 			final Integer pageNum) {
-		return getHibernateTemplate().execute
-				(
-				   new HibernateCallback<List<Course>>()
-				   {
-					  @Override
-					  public List<Course> doInHibernate(Session session) throws HibernateException
-					  {
-						  String hql="select distinct c from Course c,Selectcourse sc where c.courseId = sc.course and sc.student=:studentId";
-						  Query query = session.createQuery(hql);
-						  query.setCacheable(true);
-						  query.setInteger("studentId", studentId);
-					      query.setFirstResult((pageNum-1)*Constants.PAGE_Size);
-					      query.setMaxResults(Constants.PAGE_Size);
-					      return (List<Course>)query.list();
-					  }
-				   }
-			    );
+		return getHibernateTemplate().execute(
+				new HibernateCallback<List<Course>>() {
+					@Override
+					public List<Course> doInHibernate(Session session)
+							throws HibernateException {
+						String hql = "select distinct c from Course c,Selectcourse sc where c.courseId = sc.course and sc.student=:studentId";
+						Query query = session.createQuery(hql);
+						query.setCacheable(true);
+						query.setInteger("studentId", studentId);
+						query.setFirstResult((pageNum - 1)
+								* Constants.PAGE_Size);
+						query.setMaxResults(Constants.PAGE_Size);
+						return (List<Course>) query.list();
+					}
+				});
 	}
 
 	@Override
 	public Long getCourseTotalNumByTeacherId(final Integer teacherId) {
 		{
-			return getHibernateTemplate().execute
-					(
-					   new HibernateCallback<Long>()
-					   {
-						  @Override
-						  public Long doInHibernate(Session session) throws HibernateException
-						  {
-							  String hql="select count(distinct c) from Course c where teacher=:teacherId";
-							  Query query=session.createQuery(hql);
-							  query.setCacheable(true);
-							  query.setInteger("teacherId", teacherId);
-							  return (Long) query.uniqueResult();
-						  }
-					   }
-				    );
+			return getHibernateTemplate().execute(
+					new HibernateCallback<Long>() {
+						@Override
+						public Long doInHibernate(Session session)
+								throws HibernateException {
+							String hql = "select count(distinct c) from Course c where teacher=:teacherId";
+							Query query = session.createQuery(hql);
+							query.setCacheable(true);
+							query.setInteger("teacherId", teacherId);
+							return (Long) query.uniqueResult();
+						}
+					});
 		}
 	}
 
@@ -132,23 +127,48 @@ public class CourseDaoImpl extends BaseDaoImpl<Course> implements CourseDao {
 	@SuppressWarnings("unchecked")
 	public List<Course> findCourseByTeacherIdByPage(Integer teacherId,
 			Integer pageNum) {
-		return getHibernateTemplate().execute
-				(
-				   new HibernateCallback<List<Course>>()
-				   {
-					  @Override
-					  public List<Course> doInHibernate(Session session) throws HibernateException
-					  {
-						  String hql="select distinct c from Course c where teacher=:teacherId";
-						  Query query = session.createQuery(hql);
-						  query.setCacheable(true);
-						  query.setInteger("teacherId", teacherId);
-					      query.setFirstResult((pageNum-1)*Constants.PAGE_Size);
-					      query.setMaxResults(Constants.PAGE_Size);
-					      return (List<Course>)query.list();
-					  }
-				   }
-			    );
+		return getHibernateTemplate().execute(
+				new HibernateCallback<List<Course>>() {
+					@Override
+					public List<Course> doInHibernate(Session session)
+							throws HibernateException {
+						String hql = "select distinct c from Course c where teacher=:teacherId";
+						Query query = session.createQuery(hql);
+						query.setCacheable(true);
+						query.setInteger("teacherId", teacherId);
+						query.setFirstResult((pageNum - 1)
+								* Constants.PAGE_Size);
+						query.setMaxResults(Constants.PAGE_Size);
+						return (List<Course>) query.list();
+					}
+				});
+	}
+
+	@Override
+	public int getSelectStudentCountByCourseId(Integer id) throws Exception {
+		String whereJpql = "where o.course.courseId = ?";
+		return getResultCount(Selectcourse.class, whereJpql,
+				new Object[] { id });
+	}
+
+	@Override
+	public List<StudentCourseGradeListVo> findStudentCourseGradeListByCourseId(
+			Integer id, int offset, int pageSize) throws Exception {
+		List<StudentCourseGradeListVo> scgList = new ArrayList<StudentCourseGradeListVo>();
+		String whereJpql = "where o.course.courseId = ?";
+		List<Selectcourse> selectCourses = getResultList(Selectcourse.class,
+				whereJpql, offset, pageSize, null, new Object[] { id });
+		for (Selectcourse select : selectCourses) {
+			StudentCourseGradeListVo scg = new StudentCourseGradeListVo();
+			scg.setCourse(get(Course.class, select.getCourse().getCourseId()));
+			Student student=new Student();
+			student.setName(select.getStudent().getName());
+			student.setStudentNo(select.getStudent().getStudentNo());
+			scg.setStudent(student);
+			scg.setGrade(select.getGrade());
+			scgList.add(scg);
+		}
+		return scgList;
 	}
 
 }

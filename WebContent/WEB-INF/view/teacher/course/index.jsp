@@ -51,7 +51,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
                         	<td class="f_1" width="25%">课程名称</td>
                            <td class="f_1" width="15%">教师</td>
                            <td class="f_1" width="15%">创建时间</td>
-                           <td class="f_1" colspan="3" width="15%">操作</td>
+                           <td class="f_1" colspan="4" width="15%">操作</td>
                         </tr>
                         
                       <c:if test="${empty pageModel.pageData }">
@@ -70,7 +70,8 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
                     	<td class="f_2">                                                        	                                                       
                             	<a href="javascript:void(0);"onclick="goWithUrl('${pageContext.request.contextPath }/teacher/course/add?id=${course.courseId}');"  title="编辑"><img src="${pageContext.request.contextPath }/images/edit.png" width="16" height="16" style="margin-right: 10px;" alt=""/></a>
                             	<a href="javascript:void(0);" onclick="delCourse('${course.courseId}');" title="删除"><img src="${pageContext.request.contextPath }/images/del.png" width="16" height="16" alt=""/></a>                            
-                            	<a href="javascript:void(0);" onclick="goWithUrl('${pageContext.request.contextPath }/teacher/course/detail/${course.courseId}');">查看</a>                            	                            	
+                            	<a href="javascript:void(0);" onclick="goWithUrl('${pageContext.request.contextPath }/teacher/course/detail/${course.courseId}');">查看</a> 
+                            	<a href="javascript:void(0);" onclick="goWithUrl('${pageContext.request.contextPath }/teacher/course/gradelist/${course.courseId}');">课程成绩</a>                            	                            	
                             </td>                            
                         </tr>   
              </c:forEach>

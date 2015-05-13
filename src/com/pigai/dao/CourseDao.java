@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.pigai.entity.Course;
 import com.pigai.vo.CourseCriteria;
+import com.pigai.vo.StudentCourseGradeListVo;
 
 public interface CourseDao extends BaseDao<Course>{
 
@@ -16,5 +17,8 @@ public interface CourseDao extends BaseDao<Course>{
 	
 	public Long getCourseTotalNumByTeacherId(Integer teacherId);
 	public List<Course> findCourseByTeacherIdByPage(Integer teacherId,Integer pageNum);
+	public int getSelectStudentCountByCourseId(Integer id) throws Exception;
+	public List<StudentCourseGradeListVo> findStudentCourseGradeListByCourseId(Integer id, int offset,
+			int pageSize) throws Exception;
 	
 }

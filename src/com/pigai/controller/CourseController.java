@@ -148,5 +148,13 @@ public class CourseController extends BaseController {
 		request.setAttribute("pageMoel", pageMoel);
 		return "teacher/course/index";
 	}
+	
+	@RequestMapping(value = "/gradelist/{id}")
+	public String gradeList(@PathVariable("id") Integer id,PageModel pageModel, HttpServletRequest request){
+		
+		PageModel pageMoel = courseService.getGradePageModelByCourseId(pageModel, id);
+		request.setAttribute("pageMoel", pageMoel);
+		return "teacher/course/grade_list";
+	}
 
 }

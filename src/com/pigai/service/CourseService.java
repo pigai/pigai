@@ -10,5 +10,6 @@ public interface CourseService extends BaseService<Course>{
 public PageModel getPageModelByCriteria(PageModel pageModel,CourseCriteria criteria);
 public PageModel getPageModelByStudentId(PageModel pageModel,Integer studentId);
 public PageModel getPageModelByTeacherId(PageModel pageModel,Integer teacherId);
+public PageModel getGradePageModelByCourseId(PageModel pageModel, Integer id);
 
 }
