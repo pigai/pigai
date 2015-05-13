@@ -12,7 +12,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>课程介绍</title>
+<title>作业提交情况</title>
 <%@include file="../../common/head.jsp"%>
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/homework.js"></script>
 </head>
@@ -33,9 +33,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 			<div class="repair_con mt10">
 				<div class="repair_title">
 					<ul>
-					    <li onclick="go('${pageContext.request.contextPath }/student/course/detail/${courseId }')">课程详情</li>						
-						<li onclick="go('${pageContext.request.contextPath }/student/courseware/${courseId }')">课件</li>
-						<li class="current cur" onclick="go('${pageContext.request.contextPath }/student/homework/${courseId }')">作业</li>		
+					    <li class="current cur"  onclick="go('${pageContext.request.contextPath }/student/homework/showAllSubmit')">作业提交列表</li>		
 					</ul>
 					<span class="back">
 						<a href="${from_url eq null ? pageContext.request.contextPath : from_url }">&lt;&lt;返回</a></span>
@@ -50,9 +48,9 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
                  	<tbody>
                     	<tr>                    
                            <td class="f_1" width="15%">作业名称</td>
-                           <td class="f_1" width="15%">作业分数</td>
-                           <td class="f_1" width="15%">截止时间</td>
-                           <td class="f_1" width="15%">创建时间</td>
+                           <td class="f_1" width="15%">提交时间</td>
+                           <td class="f_1" width="15%">是否被批改</td>
+                           <td class="f_1" width="15%">所得分数</td>
                            <td class="f_1" colspan="3" width="15%">操作</td>
                         </tr>
                         
@@ -61,21 +59,18 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
               	 	<td colspan="8"><li style="color: gray;text-align: center;">没有相关信息</li></td>
               	 </tr>
               </c:if>
-              <c:forEach items="${pageModel.pageData }" var="homework" varStatus="status">
-               <tr<c:if test="${status.index % 2 == 1}"> class="row"</c:if>> 
-               <td class="f_2">${homework.name }</td>     
-               <td class="f_2">${homework.score }</td>        
-                 <td class="f_2"><fmt:formatDate value="${homework.deadline }"
+              <c:forEach items="${pageModel.pageData }" var="submitrecord" varStatus="status">
+              	 <tr<c:if test="${status.index % 2 == 1}"> class="row"</c:if>> 
+               		<td class="f_2">${submitrecord.homeworkName }</td>           
+              		 <td class="f_2"><fmt:formatDate value="${submitrecord.createTime }"
 											pattern="yyyy-MM-dd HH:mm" /></td>
-               <td class="f_2"><fmt:formatDate value="${homework.createTime }"
-											pattern="yyyy-MM-dd HH:mm" /></td>
-                                  	                                                   	                    								                  
-                    	<td class="f_2">                             
-                            	<a href="javascript:void(0);" onclick="goWithUrl('${pageContext.request.contextPath }/student/homework/detail/${homework.homeworkId}');">查看</a>                                                        	                                                                                   
-                            	                            
-                            	                        	                            	
-                            </td>                            
-                        </tr>   
+					 <td class="f_2"><c:if test="${submitrecord.correct ==false}">未批改</c:if>
+					 <c:if test="${submitrecord.correct ==true}">已批改</c:if></td>						
+              		 <td class="f_2">${submitrecord.score }</td>    
+              		 <td class="f_2">                                                        	                                                                                 	                          
+                     	<a href="javascript:void(0);" onclick="goWithUrl('${pageContext.request.contextPath }/download/${submitrecord.fileId}');">下载</a>                            	                            	
+                     </td>               	                                                   	                    								                  
+				</tr>   
              </c:forEach>
                                              
                     </tbody>

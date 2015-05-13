@@ -12,7 +12,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>�γ̽���</title>
+<title>作业详情</title>
 <%@include file="../../common/head.jsp"%>
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/course.js"></script>
 </head>
@@ -34,7 +34,8 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 			<div class="repair_con mt10">
 				<div class="repair_title">
 					<ul>
-					    <li  class="current cur" onclick="go('${pageContext.request.contextPath }/homework/detail/${homeworkId }')">作业详情</li>																					
+					    <li  class="current cur" onclick="go('${pageContext.request.contextPath }/student/homework/detail/${homeworkId }')">作业详情</li>	
+					    <li onclick="go('${pageContext.request.contextPath }/student/homework/showSubmitByHomeworkId/${homeworkId }')">作业提交情况</li>																				
 					</ul>		
 					<span class="back">
 						<a href="${from_url eq null ? pageContext.request.contextPath : from_url }">&lt;&lt;返回</a></span>

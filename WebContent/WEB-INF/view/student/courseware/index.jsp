@@ -51,7 +51,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
                  	<tbody>
                     	<tr>                    
                            <td class="f_1" width="15%">课件名称</td>
-                           <td class="f_1" width="15%">创建时间</td>
+                           <td class="f_1" width="15%">上传时间</td>
                            <td class="f_1" colspan="3" width="15%">操作</td>
                         </tr>
                         

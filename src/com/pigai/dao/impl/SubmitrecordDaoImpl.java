@@ -78,4 +78,74 @@ public class SubmitrecordDaoImpl extends BaseDaoImpl implements SubmitrecordDao 
 				.getCourse().getCourseId());
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<HomeworkSubmitVo> getSubmitrecordsByHomeworkIdAndStudentId(
+			Integer homeworkId, Integer studentId, int offset, int pageSize) {
+		String whereJpql = "where o.homework.homeworkId = ? and o.student.studentId = ? ";
+		System.out.println("homeworkId="+homeworkId+",studentId="+studentId);
+		List<Submitrecord> submitrecords = getResultList(entityClass,
+				whereJpql, null, homeworkId, studentId);
+		System.out.println(submitrecords.size());
+		List<HomeworkSubmitVo> homeworkSubmitVos = new ArrayList<HomeworkSubmitVo>();
+		for (Submitrecord submitrecord:submitrecords){
+			Homework homework = getHibernateTemplate().get(Homework.class, submitrecord.getHomework().getHomeworkId());
+			HomeworkSubmitVo homeworkSubmitVo = new HomeworkSubmitVo();
+			homeworkSubmitVo.setHomeworkId(homework.getHomeworkId());
+			homeworkSubmitVo.setHomeworkName(homework.getName());
+			homeworkSubmitVo.setScore(submitrecord.getScore());
+			homeworkSubmitVo.setCorrect(submitrecord.isCorrect());
+			homeworkSubmitVo.setCreateTime(submitrecord.getCreateTime());
+			homeworkSubmitVo.setSubmitId(submitrecord.getSubmitId());
+			if (null != submitrecord.getFileinfo()) {
+				homeworkSubmitVo.setFileId(submitrecord.getFileinfo()
+						.getFileId());
+			}
+			homeworkSubmitVos.add(homeworkSubmitVo);
+		}
+		System.out.println(homeworkSubmitVos.size());
+		return homeworkSubmitVos;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public int getSubmitrecordsCountByHomeworkIdAndStudentId(Integer homeworkId,
+			Integer studentId) {
+		String whereJpql = "where o.homework.homeworkId = ? and o.student.studentId = ? ";
+		return getResultCount(entityClass, whereJpql,homeworkId,studentId);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<HomeworkSubmitVo> getSubmitrecordsByStudentId(Integer studentId,
+			int offset, int pageSize) {
+		String whereJpql = "where o.student.studentId = ? ";
+		List<Submitrecord> submitrecords = getResultList(entityClass,
+				whereJpql, null,studentId);
+		List<HomeworkSubmitVo> homeworkSubmitVos = new ArrayList<HomeworkSubmitVo>();
+		for (Submitrecord submitrecord:submitrecords){
+			Homework homework = getHibernateTemplate().get(Homework.class, submitrecord.getHomework().getHomeworkId());
+			HomeworkSubmitVo homeworkSubmitVo = new HomeworkSubmitVo();
+			homeworkSubmitVo.setHomeworkId(homework.getHomeworkId());
+			homeworkSubmitVo.setHomeworkName(homework.getName());
+			homeworkSubmitVo.setScore(submitrecord.getScore());
+			homeworkSubmitVo.setCorrect(submitrecord.isCorrect());
+			homeworkSubmitVo.setCreateTime(submitrecord.getCreateTime());
+			homeworkSubmitVo.setSubmitId(submitrecord.getSubmitId());
+			if (null != submitrecord.getFileinfo()) {
+				homeworkSubmitVo.setFileId(submitrecord.getFileinfo()
+						.getFileId());
+			}
+			homeworkSubmitVos.add(homeworkSubmitVo);
+		}
+		return homeworkSubmitVos;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public int getSubmitrecordsCountByStudentId(Integer studentId) {
+		String whereJpql = "where o.student.studentId = ? ";
+		return getResultCount(entityClass, whereJpql,studentId);
+	}
+
 }
