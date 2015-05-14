@@ -17,7 +17,9 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/course.js"></script>
 </head>
 <body>
-	
+<script type="text/javascript">
+    var editor = null; 
+</script>
 
 	<div class="w1000">
 
@@ -43,7 +45,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 				<form id="apply"
 					action="${pageContext.request.contextPath}/teacher/course/add"
 					method="post">
-					<c:if test="${empty id }">
+					<c:if test="${not empty id }">
 					<input type="hidden" name="courseId"  value="${id }" />
 					</c:if>
 					<input type="hidden" name="teacherId"  value="${CURRENTUSER.userId }" />
@@ -70,8 +72,8 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 						<dl>
 							<dt>课程介绍 :</dt>
 							<dd>
-								<textarea name="courseIntr"  placeholder="请在此输入备注信息">${course.courseIntr }</textarea>
-								<script type="text/javascript">CKEDITOR.replace('courseIntr',{height:300});</script>
+								<textarea name="courseIntr" id="courseIntr"  placeholder="请在此输入备注信息">${course.courseIntr }</textarea>
+								<script type="text/javascript">editor=CKEDITOR.replace('courseIntr',{height:300});</script>
 							</dd>
 						</dl>
 						<div class="submit-btn" style="margin-left: 86px;">
@@ -91,6 +93,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 <script>
 	function applySubmit() {		
 		if (true) {
+			 editor.updateElement();
 			var parm = $("#apply").serialize();
 			postAjaxRequest(basePath()+"/teacher/course/add",
 					parm, function(msg) {

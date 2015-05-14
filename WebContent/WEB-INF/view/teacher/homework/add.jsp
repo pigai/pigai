@@ -17,6 +17,10 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/homework.js"></script>
 </head>
 <body>	
+<script type="text/javascript">
+    var editor = null; 
+</script>
+
 	<div class="w1000">
 
 		<jsp:include page="../../common/navigation_menu.jsp" />
@@ -77,7 +81,8 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 						<dl>
 							<dt>作业介绍 :</dt>
 							<dd>
-								<textarea name="introduction"  id ="introduction" placeholder="请在此输入备注信息">${homework.introduction }</textarea>
+								<textarea name="introduction"  id ="introduction" placeholder="请在此输入备注信息">${homework.introduction }</textarea>								
+								<script type="text/javascript">editor=CKEDITOR.replace('introduction',{height:300});</script>
 							</dd>
 						</dl>
 						<div class="submit-btn" style="margin-left: 86px;">
@@ -97,6 +102,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 <script>
 	function applySubmit() {		
 		if (true) {
+			 editor.updateElement();
 			var parm = $("#apply").serialize();
 			postAjaxRequest(basePath()+"/teacher/homework/add",
 					parm, function(msg) {

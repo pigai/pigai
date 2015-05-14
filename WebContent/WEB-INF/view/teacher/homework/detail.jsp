@@ -49,12 +49,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 							${homework.name }
 							</dd>
 						</dl>												
-						<dl>
-							<dt>作业介绍 :</dt>
-							<dd>
-								${homework.introduction }
-							</dd>
-						</dl>
+				
 						
 					   <dl>
 							<dt>满分</dt>
@@ -63,7 +58,13 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 							</dd>
 						</dl>
 						
-						</div>				
+						</div>	
+					<div>
+						<span><h2>作业介绍 :</h2></span>
+						
+								${homework.introduction}
+							
+						</div>			
 			
 		</div>
 		</div>
