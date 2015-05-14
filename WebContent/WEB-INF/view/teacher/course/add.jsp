@@ -70,7 +70,8 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 						<dl>
 							<dt>课程介绍 :</dt>
 							<dd>
-								<textarea name="courseIntr" value="${course.courseIntr } placeholder="请在此输入备注信息"></textarea>
+								<textarea name="courseIntr"  placeholder="请在此输入备注信息">${course.courseIntr }</textarea>
+								<script type="text/javascript">CKEDITOR.replace('courseIntr',{height:300});</script>
 							</dd>
 						</dl>
 						<div class="submit-btn" style="margin-left: 86px;">

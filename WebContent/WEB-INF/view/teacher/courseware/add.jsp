@@ -16,7 +16,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 <%@include file="../../common/head.jsp"%>
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/course.js"></script>
 </head>
-<body>
+<body background="">
 	
 	
 		

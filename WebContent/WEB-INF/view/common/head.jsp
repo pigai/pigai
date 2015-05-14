@@ -18,7 +18,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/util.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/artDialog.js?skin=default"></script> 
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/iframeTools.source.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/plugin/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/plugin/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/ajaxfileupload.js"></script>
 
 
