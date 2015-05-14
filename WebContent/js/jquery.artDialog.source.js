@@ -1,19 +1,13 @@
 /*!
- * artDialog 4.1.7
- * Date: 2013-03-03 08:04
+ * artDialog 4.1.4
+ * Date: 2011-12-08 1:32
  * http://code.google.com/p/artdialog/
- * (c) 2009-2012 TangBin, http://www.planeArt.cn
+ * (c) 2009-2011 TangBin, http://www.planeArt.cn
  *
  * This is licensed under the GNU LGPL, version 2.1 or later.
  * For details, see: http://creativecommons.org/licenses/LGPL/2.1/
  */
-
-
-
-
-//------------------------------------------------
-// 对话框模块
-//------------------------------------------------
+ 
 ;(function ($, window, undefined) {
 
 $.noop = $.noop || function () {}; // jQuery 1.3.2
@@ -22,15 +16,15 @@ var _box, _thisScript, _skin, _path,
 	_$window = $(window),
 	_$document = $(document),
 	_$html = $('html'),
+	_$body = $(function(){_$body = $('body')}),
 	_elem = document.documentElement,
 	_isIE6 = window.VBArray && !window.XMLHttpRequest,
 	_isMobile = 'createTouch' in document && !('onmousemove' in _elem)
 		|| /(iPhone|iPad|iPod)/i.test(navigator.userAgent),
-	_expando = 'artDialog' + + new Date;
+	_expando = 'artDialog' + (new Date).getTime();
 
 var artDialog = function (config, ok, cancel) {
 	config = config || {};
-	
 	if (typeof config === 'string' || config.nodeType === 1) {
 		config = {content: config, fixed: !_isMobile};
 	};
@@ -85,9 +79,7 @@ var artDialog = function (config, ok, cancel) {
 
 artDialog.fn = artDialog.prototype = {
 
-	version: '4.1.7',
-	
-	closed: true,
+	version: '4.1.4',
 	
 	_init: function (config) {
 		var that = this, DOM,
@@ -95,7 +87,7 @@ artDialog.fn = artDialog.prototype = {
 			iconBg = icon && (_isIE6 ? {png: 'icons/' + icon + '.png'}
 			: {backgroundImage: 'url(\'' + config.path + '/skins/icons/' + icon + '.png\')'});
 		
-        that.closed = false;
+		that._isRun = true;
 		that.config = config;
 		that.DOM = DOM = that.DOM || that._getDOM();
 		
@@ -398,6 +390,7 @@ artDialog.fn = artDialog.prototype = {
 		var that = this,
 			ags = arguments,
 			DOM = that.DOM,
+			wrap = DOM.wrap,
 			buttons = DOM.buttons,
 			elem = buttons[0],
 			strongButton = 'aui_state_highlight',
@@ -420,11 +413,6 @@ artDialog.fn = artDialog.prototype = {
 				that._focus = $(button).addClass(strongButton);
 				that.focus();
 			};
-			
-			// Internet Explorer 的默认类型是 "button"，
-			// 而其他浏览器中（包括 W3C 规范）的默认值是 "submit"
-			// @see http://www.w3school.com.cn/tags/att_button_type.asp
-			button.setAttribute('type', 'button');
 			
 			button[_expando + 'callback'] = name;
 			button.disabled = !!val.disabled;
@@ -458,7 +446,7 @@ artDialog.fn = artDialog.prototype = {
 	
 	/** 关闭对话框 */
 	close: function () {
-		if (this.closed) return this;
+		if (!this._isRun) return this;
 		
 		var that = this,
 			DOM = that.DOM,
@@ -521,10 +509,8 @@ artDialog.fn = artDialog.prototype = {
 	/** 设置焦点 */
 	focus: function () {
 		try {
-			if (this.config.focus) {
-				var elem = this._focus && this._focus[0] || this.DOM.close[0];
-				elem && elem.focus();
-			}
+			var elem = this._focus && this._focus[0] || this.DOM.close[0];
+			elem && elem.focus();
 		} catch (e) {}; // IE对不可见元素设置焦点会报错
 		return this;
 	},
@@ -559,7 +545,7 @@ artDialog.fn = artDialog.prototype = {
 			config = that.config,
 			docWidth = _$document.width(),
 			docHeight = _$document.height(),
-			lockMaskWrap = that._lockMaskWrap || $(document.body.appendChild(document.createElement('div'))),
+			lockMaskWrap = that._lockMaskWrap || $(_$body[0].appendChild(document.createElement('div'))),
 			lockMask = that._lockMask || $(lockMaskWrap[0].appendChild(document.createElement('div'))),
 			domTxt = '(document).documentElement',
 			sizeCss = _isMobile ? 'width:' + docWidth + 'px;height:' + docHeight
@@ -640,7 +626,7 @@ artDialog.fn = artDialog.prototype = {
 		var wrap = document.createElement('div'),
 			body = document.body;
 		wrap.style.cssText = 'position:absolute;left:0;top:0';
-		wrap.innerHTML = artDialog._templates;
+		wrap.innerHTML = this._templates;
 		body.insertBefore(wrap, body.firstChild);
 		
 		var name, i = 0,
@@ -748,7 +734,7 @@ artDialog.fn = artDialog.prototype = {
 	_setFixed: (function () {
 		_isIE6 && $(function () {
 			var bg = 'backgroundAttachment';
-			if (_$html.css(bg) !== 'fixed' && $('body').css(bg) !== 'fixed') {
+			if (_$html.css(bg) !== 'fixed' && _$body.css(bg) !== 'fixed') {
 				_$html.css({
 					zoom: 1,// 避免偶尔出现body背景图片异常的情况
 					backgroundImage: 'url(about:blank)',
@@ -891,13 +877,8 @@ $.fn.dialog = $.fn.artDialog = function () {
 artDialog.focus = null;
 
 
-/** 获取某对话框API */
-artDialog.get = function (id) {
-	return id === undefined
-	? artDialog.list
-	: artDialog.list[id];
-};
 
+/** 对话框列表 */
 artDialog.list = {};
 
 
@@ -960,9 +941,9 @@ try {
 
 
 
-// 使用uglifyjs压缩能够预先处理"+"号合并字符串
+// 使用uglifyjs压缩能够预先处理"+"号以合并字符串
 // uglifyjs: http://marijnhaverbeke.nl/uglifyjs
-artDialog._templates =
+artDialog.fn._templates =
 '<div class="aui_outer">'
 +	'<table class="aui_border">'
 +		'<tbody>'
@@ -1074,7 +1055,7 @@ var _dragEvent, _use,
 	_$window = $(window),
 	_$document = $(document),
 	_elem = document.documentElement,
-	_isIE6 = !('minWidth' in _elem.style),
+	_isIE6 = !-[1,] && !('minWidth' in _elem.style),
 	_isLosecapture = 'onlosecapture' in _elem,
 	_isSetCapture = 'setCapture' in _elem;
 
@@ -1208,7 +1189,7 @@ _use = function (event) {
 			_$window.unbind('blur', _dragEvent.end);
 		_isSetCapture && title[0].releaseCapture();
 		
-		_isIE6 && !api.closed && api._autoPositionType();
+		_isIE6 && api._isRun && api._autoPositionType();
 		
 		wrap.removeClass('aui_state_drag');
 	};
