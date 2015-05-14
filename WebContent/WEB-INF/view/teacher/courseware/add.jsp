@@ -18,8 +18,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 </head>
 <body>
 	
-
-	<div class="w1000">
+	
 		
 		<div class="cont">
 		
@@ -59,9 +58,8 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 			
 		</div>
 		</div>
-	</div>
-	<jsp:include page="../../common/footer.jsp" />
-</div>
+	</div>	
+
 
 </body>
 </html>
@@ -101,27 +99,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 				error : function(msg) {
 					alert(msg.message);
 				}
-			});
-
-			/*  $.ajax({
-			     type: "POST",
-			     dataType: "multipart/form-data",
-			     url: basePath()+"/courseware/add",
-			     data:parm,
-			     success: function (msg) {
-			    	 if (msg.status == true) {
-							alert(msg.message);
-							doAfterTime(function() {
-								window.top.location.reload();
-							}, 1000);						
-						} else {
-							alert(msg.message);
-						}
-			     },
-			     error: function(data) {
-			         alert("error:"+data.message);
-			      }
-			 });		 */
+			});		
 		}
 	}
 </script>
