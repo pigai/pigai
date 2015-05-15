@@ -2,6 +2,7 @@ package com.pigai.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -74,13 +75,13 @@ public class CoursewareController extends BaseController {
 					.getParameter("courseId"));			
 			System.out.println("开始");
 			String path = request.getSession().getServletContext()
-					.getRealPath("/")+"upload\\";
+					.getRealPath("/upload/");
 			 MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 			 MultipartFile file = multipartRequest.getFile("file");
-			String fileName = file.getOriginalFilename();
+			String fileName = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date())+file.getOriginalFilename();
 			Fileinfo fileinfo = new Fileinfo();
 			fileinfo.setFileName(fileName);
-			fileinfo.setFilePath("upload/"+fileName);
+			fileinfo.setFilePath("/upload/"+fileName);
 			fileinfo.setCreateTime(new Date());
 			File targetFile = new File(path, fileName);
 			if (!targetFile.exists()) {

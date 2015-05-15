@@ -69,7 +69,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 					 <c:if test="${submitrecord.correct ==true}">已批改</c:if></td>						
               		 <td class="f_2">${submitrecord.score }</td>    
               		 <td class="f_2">                                                        	                                                                                 	                          
-                     	<a href="javascript:void(0);" onclick="goWithUrl('${pageContext.request.contextPath }/download/${submitrecord.fileId}');">下载</a>                            	                            	
+                     	<a href="javascript:void(0);" onclick="goWithUrl('${pageContext.request.contextPath }/download/submitrecord/${submitrecord.submitId}');">下载</a>                      	                            	
                      </td>               	                                                   	                    								                  
 				</tr>   
              </c:forEach>

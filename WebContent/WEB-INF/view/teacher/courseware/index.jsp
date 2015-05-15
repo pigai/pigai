@@ -68,7 +68,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
                                   	                                                   	                    								                  
                     	<td class="f_2">                                                        	                                                                                   
                             	<a href="javascript:void(0);" onclick="delCourseware('${courseware.coursewareId}');" title="删除"><img src="${pageContext.request.contextPath }/images/del.png" width="16" height="16" alt=""/></a>                            
-                            	<a href="javascript:void(0);" onclick="goWithUrl('${pageContext.request.contextPath }/teacher/courseware/download/${courseware.coursewareId}');">下载</a>                        	                            	
+                            	<a href="javascript:void(0);" onclick="goWithUrl('${pageContext.request.contextPath }/download/courseware/${courseware.coursewareId}');">下载</a>                        	                            	
                             </td>                            
                         </tr>   
              </c:forEach>

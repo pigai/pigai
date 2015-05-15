@@ -16,11 +16,8 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 <%@include file="../../common/head.jsp"%>
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/homework.js"></script>
 </head>
-<body>
-	
-
-	<div class="w1000">
-		
+<body background="">
+			
 		<div class="cont">
 		
 
@@ -29,8 +26,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
             <div class="repair_main">
             
 				<form id="apply" action="${pageContext.request.contextPath}/student/homework/submit"method="post" enctype="multipart/form-data" >
-					
-					<input type="hidden" name="courseId" id="courseId"  value="${courseId }" />					
+					<input type="hidden" name="homeworkId" id="homeworkId"  value="${homeworkId }" />					
 					
 					<div class=" Re-cont my-repair">
 						<p class="message-help " style="margin-top: 10px;">
@@ -50,9 +46,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 				</form>
 			
 		</div>
-		</div>
 	</div>
-	<jsp:include page="../../common/footer.jsp" />
 </div>
 
 </body>

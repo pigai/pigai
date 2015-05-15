@@ -2,6 +2,7 @@ package com.pigai.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -199,7 +200,7 @@ public class StudentController {
 	public String submit(@PathVariable("homeworkId") Integer homeworkId,
 			HttpServletRequest request){
 		request.setAttribute("homeworkId", homeworkId);
-		return "student/submitHomework/submit";
+		return "student/homework/submit";
 	}
 	
 	@RequestMapping(value = "homework/submit", method = RequestMethod.POST)
@@ -211,13 +212,13 @@ public class StudentController {
 					.getParameter("homeworkId"));			
 			System.out.println("开始");
 			String path = request.getSession().getServletContext()
-					.getRealPath("/")+"upload\\";
+					.getRealPath("/upload");
 			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 			MultipartFile file = multipartRequest.getFile("file");
-			String fileName = file.getOriginalFilename();
+			String fileName = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date())+file.getOriginalFilename();
 			Fileinfo fileinfo = new Fileinfo();
 			fileinfo.setFileName(fileName);
-			fileinfo.setFilePath("upload/"+fileName);
+			fileinfo.setFilePath("/upload/"+fileName);
 			fileinfo.setCreateTime(new Date());
 			File targetFile = new File(path, fileName);
 			if (!targetFile.exists()) {
@@ -238,10 +239,10 @@ public class StudentController {
 			submitrecord.setStudent(student);
 			submitrecord.setStudentName(student.getName());			
 			submitrecordService.add(submitrecord);
-			JSONUtil.outputSuccess("添加成功", response);
+			JSONUtil.outputSuccess("上传作业成功", response);
 		} catch (Exception e) {
 			e.printStackTrace();
-			JSONUtil.outputError("添加失败", response);
+			JSONUtil.outputError("上传作业失败", response);
 
 		}
 	}
