@@ -67,7 +67,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 						<dl>
 							<dt>课程介绍 :</dt>
 							<dd>
-								<textarea name="courseIntr"  placeholder="请在此输入备注信息">${course.courseIntr}</textarea>
+								${course.courseIntr}
 							</dd>
 						</dl>
 						

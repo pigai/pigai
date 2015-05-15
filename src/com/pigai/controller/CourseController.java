@@ -70,20 +70,22 @@ public class CourseController extends BaseController {
 	public void doAdd(HttpServletRequest request, HttpServletResponse response,
 			Course course) throws IOException {
 		try {
-
-			Integer teacherId = Integer.parseInt(request
-					.getParameter("teacherId"));
-			Teacher teacher = teacherService.get(teacherId);
-			course.setTeacher(teacher);
-
 			if (CheckUtil.isEmpty(course.getCourseId())) {
+				Integer teacherId = Integer.parseInt(request
+						.getParameter("teacherId"));
+				Teacher teacher = teacherService.get(teacherId);
+				course.setTeacher(teacher);
 				courseService.add(course);
 			} else {
-				courseService.update(course);
+				Course newCourse = courseService.get(course.getCourseId());
+				newCourse.setCourseIntr(course.getCourseIntr());
+				newCourse.setCourseName(course.getCourseName());
+				courseService.update(newCourse);
 			}
 
 			JSONUtil.outputSuccess("添加成功", response);
 		} catch (Exception e) {
+			e.printStackTrace();
 			JSONUtil.outputError("申请失败", response);
 
 		}
@@ -132,27 +134,30 @@ public class CourseController extends BaseController {
 
 		}
 	}
-	
-	/*@RequestMapping(value = "/studentCourse")
-	public String studentCourse(PageModel pageModel, HttpServletRequest request){
-		User user = (User)request.getSession().getAttribute("user");	
-		PageModel pageMoel = courseService.getPageModelByStudentId(pageModel, user.getUserId());
-		request.setAttribute("pageMoel",pageMoel);
-		return "teacher/course/index";
-	}
-	*/
+
+	/*
+	 * @RequestMapping(value = "/studentCourse") public String
+	 * studentCourse(PageModel pageModel, HttpServletRequest request){ User user
+	 * = (User)request.getSession().getAttribute("user"); PageModel pageMoel =
+	 * courseService.getPageModelByStudentId(pageModel, user.getUserId());
+	 * request.setAttribute("pageMoel",pageMoel); return "teacher/course/index";
+	 * }
+	 */
 	@RequestMapping(value = "/teacherCourse")
-	public String teacherCourse(PageModel pageModel, HttpServletRequest request){
-		User user = (User)request.getSession().getAttribute("user");
-		PageModel pageMoel = courseService.getPageModelByTeacherId(pageModel, user.getUserId());
+	public String teacherCourse(PageModel pageModel, HttpServletRequest request) {
+		User user = (User) request.getSession().getAttribute("user");
+		PageModel pageMoel = courseService.getPageModelByTeacherId(pageModel,
+				user.getUserId());
 		request.setAttribute("pageMoel", pageMoel);
 		return "teacher/course/index";
 	}
-	
+
 	@RequestMapping(value = "/gradelist/{id}")
-	public String gradeList(@PathVariable("id") Integer id,PageModel pageModel, HttpServletRequest request){
-		
-		PageModel pageMoel = courseService.getGradePageModelByCourseId(pageModel, id);
+	public String gradeList(@PathVariable("id") Integer id,
+			PageModel pageModel, HttpServletRequest request) {
+
+		PageModel pageMoel = courseService.getGradePageModelByCourseId(
+				pageModel, id);
 		request.setAttribute("pageMoel", pageMoel);
 		return "teacher/course/grade_list";
 	}
