@@ -110,8 +110,8 @@ table {
 	background:#e7e7e9;
 }
 #contentBox{
-	width:1000px;
-	margin-left:150px; 
+	width:80%;
+	margin:auto; 
 }
 
 /*---------------------student register css--------------*/
@@ -368,6 +368,7 @@ table {
 	border-top: none;
 	padding: 0 10px 10px;
 	overflow: hidden;
+	height:380px;
 }
 .f_3 {
 	color: #fff;

@@ -20,12 +20,14 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 <script type="text/javascript">
     var editor = null; 
 </script>
+<div id="body_container">	
 
-	<div class="w1000">
 
-		<jsp:include page="../../common/navigation_menu.jsp" />
+	<div class="w1000" style="height:670px;">
 
-		<div class="cont">
+				<jsp:include page="../../common/teacher_navigation_menu.jsp" />
+
+		<div class="cont" >
 			<div class="current-position">
 				<span class="font14"> 当前位置：<a href="${pageContext.request.contextPath }/teacher">首页</a> &gt;&gt; 
 					<a href="${pageContext.request.contextPath }/teacher/course"> 课程</a> &gt;&gt; 作业</span>
@@ -39,7 +41,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 					<span class="back">
 						<a href="${from_url eq null ? pageContext.request.contextPath : from_url }">&lt;&lt;返回</a></span>
 				</div>
-            <div class="repair_main">            
+            <div class="repair_main" style="height:500px;">            
 				<form id="apply"
 					action="${pageContext.request.contextPath}/teacher/homework/add"
 					method="post">
@@ -82,7 +84,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 							<dt>作业介绍 :</dt>
 							<dd>
 								<textarea name="introduction"  id ="introduction" placeholder="请在此输入备注信息">${homework.introduction }</textarea>								
-								<script type="text/javascript">editor=CKEDITOR.replace('introduction',{height:300});</script>
+								<script type="text/javascript">editor=CKEDITOR.replace('introduction',{height:170});</script>
 							</dd>
 						</dl>
 						<div class="submit-btn" style="margin-left: 86px;">
@@ -96,9 +98,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 	</div>
 	<jsp:include page="../../common/footer.jsp" />
 </div>
-
-</body>
-</html>
+</div>
 <script>
 	function applySubmit() {		
 		if (true) {
@@ -117,3 +117,5 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 		}
 		}
 </script>
+</body>
+</html>

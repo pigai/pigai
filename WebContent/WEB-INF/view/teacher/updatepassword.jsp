@@ -1,47 +1,79 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
+<%
+request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
+%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@include file="../common/init.jsp"%>
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<%@include file="../common/head.jsp"%>
+<title>密码修改</title>
 </head>
 <body>
-<div id="updatepass" style="text-align: center"> 
-	<table border="0" cellpadding="3" cellspacing="3" style="margin: 0 auto;"> 
-        <tr> 
-            <td style="text-align: right; padding: 10px"> 
-                <label>旧密码:</label> 
-            </td> 
-            <td> 
-                <input id="oldpassword" type="text" size="20" /> 
-            </td> 
-        </tr> 
-        <tr> 
-            <td style="text-align: right; padding: 10px"> 
-                <label>新密码:</label> 
-            </td> 
-            <td> 
-                <input id="newpassword" type="text" size="20" /> 
-            </td> 
-        </tr> 
-        <tr> 
-            <td style="text-align: right; padding: 10px"> 
-                <label>新密码:</label> 
-            </td> 
-            <td> 
-                <input id="newpasswordagain" type="text" size="20" /> 
-            </td> 
-        </tr>
-        <tr align="right"> 
-            <td colspan="2"> 
-                <input type="submit" id="Updatepass" value="&nbsp;&nbsp;登&nbsp;录&nbsp;&nbsp;" style="margin-right: 50px">&nbsp;         
-            </td> 
-        </tr> 
-    </table> 
-</div> 
-<script type="text/javascript" src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+	
+<div id="body_container"> 
+	<div class="w1000">
+
+		<jsp:include page="../common/teacher_navigation_menu.jsp" />
+		
+		<div class="cont">
+			<div class="current-position">
+				<span class="font14"> 当前位置：<a href="${pageContext.request.contextPath }/">首页</a> &gt;&gt; 
+					<a href="">修改密码（快去改我的链接不对哒）</a></span>
+					
+			</div>
+
+			<div class="repair_con mt10">
+				<div class="repair_title">
+					<ul>
+					    <li  class="current cur" >修改密码</li>															
+					</ul>		
+					<span class="back">
+						<a href="${from_url eq null ? pageContext.request.contextPath : from_url }">&lt;&lt;返回</a></span>
+				</div>
+            <div class="repair_main">
+	            	<div id="updatepass" style="text-align: center"> 
+						<table border="0" cellpadding="8" cellspacing="8" style="margin: 0 auto;margin-top:100px;""> 
+					        <tr> 
+					            <td style="text-align: right; padding: 10px"> 
+					                <label>旧密码:</label> 
+					            </td> 
+					            <td> 
+					                <input id="oldPassword" type="text" size="20" style="width:150px;height:30px;border:1px solid #A6D9EB;"/> 
+					            </td> 
+					        </tr> 
+					        <tr> 
+					            <td style="text-align: right; padding: 10px"> 
+					                <label>新密码:</label> 
+					            </td> 
+					            <td> 
+					                <input id="newPassword" type="text" size="20" style="width:150px;height:30px;border:1px solid #A6D9EB;"/> 
+					            </td> 
+					        </tr> 
+					        <tr> 
+					            <td style="text-align: right; padding: 10px"> 
+					                <label>新密码:</label> 
+					            </td> 
+					            <td> 
+					                <input id="newPasswordAgain" type="text" size="20" style="width:150px;height:30px;border:1px solid #A6D9EB;"/> 
+					            </td> 
+					        </tr>
+					        <tr align="right"> 
+					            <td colspan="2"> 
+					               <input type="submit" id="Updatepass" value="&nbsp;&nbsp;确&nbsp;认&nbsp;&nbsp;" style="margin:10px 50px 0 0;width:50px;height:25px;background:#DEF2F9;border:1px solid #A6D9EB ">&nbsp;         
+					            </td> 
+					        </tr> 
+					    </table> 
+				</div>	
+		</div>
+		</div>
+	</div>
+	<jsp:include page="../common/footer.jsp" />
+</div>
+</div>
 <script type="text/javascript">
 $().ready(function () {
 	$('#Updatepass').click(function () {

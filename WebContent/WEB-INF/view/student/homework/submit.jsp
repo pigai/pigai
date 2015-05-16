@@ -16,8 +16,8 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 <%@include file="../../common/head.jsp"%>
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/homework.js"></script>
 </head>
-<body background="">
-			
+<body>
+<div id="body_container">				
 		<div class="cont">
 		
 
@@ -48,9 +48,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 		</div>
 	</div>
 </div>
-
-</body>
-</html>
+</div>
 <script>
 	function applySubmit() {
 		if(!stringNotNull($("#file").val())){
@@ -105,3 +103,5 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 		}
 	}
 </script>
+</body>
+</html>

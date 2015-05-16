@@ -120,7 +120,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 		<input type="button"  id="sturegister" value="&nbsp;&nbsp;注&nbsp;册&nbsp;&nbsp;" onclick = "register()" ></input>
 		</div>		
 		<div id="teacherEnter" class="hide">		
-		<label>工号:&nbsp;</label><input id="teacherNo" type="text" size="20" > </input><br />
+		<label>工号:&nbsp;</label><input id="teacherNo" type="text" size="20"> </input><br />
 		<label>密码:&nbsp;</label><input id="teaPassword" type="password" size="20" ></input> <br />
 		<input type="button"  id="tealogin" value="&nbsp;&nbsp;登&nbsp;录&nbsp;&nbsp;" ></input>&nbsp;&nbsp;
 		<!-- <input type="button"  id="tearegister" value="&nbsp;&nbsp;注&nbsp;册&nbsp;&nbsp;" ></input>	 -->

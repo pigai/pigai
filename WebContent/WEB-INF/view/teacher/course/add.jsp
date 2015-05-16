@@ -4,8 +4,6 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@include file="../../common/init.jsp"%>
 
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
 
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -15,15 +13,16 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 <title>添加课程</title>
 <%@include file="../../common/head.jsp"%>
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/course.js"></script>
-</head>
-<body>
 <script type="text/javascript">
     var editor = null; 
 </script>
+</head>
+<body>
+<div id="body_container">	
 
 	<div class="w1000">
 
-		<jsp:include page="../../common/navigation_menu.jsp" />
+		<jsp:include page="../../common/teacher_navigation_menu.jsp" />
 
 
 		<div class="cont">
@@ -87,9 +86,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 	</div>
 	<jsp:include page="../../common/footer.jsp" />
 </div>
-
-</body>
-</html>
+</div>
 <script>
 	function applySubmit() {		
 		if (true) {
@@ -108,3 +105,5 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 		}
 		}
 </script>
+</body>
+</html>

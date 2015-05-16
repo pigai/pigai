@@ -18,10 +18,10 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 </head>
 <body>
 	
-
+<div id="body_container"> 
 	<div class="w1000">
 
-		<jsp:include page="../../common/navigation_menu.jsp" />
+		<jsp:include page="../../common/student_navigation_menu.jsp" />
 
 
 		<div class="cont">
@@ -67,7 +67,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 						<dl>
 							<dt>课程介绍 :</dt>
 							<dd>
-								<textarea name="courseIntr"  placeholder="请在此输入备注信息" disabled="disabled">${course.courseIntr}</textarea>
+								${course.courseIntr}
 							</dd>
 						</dl>
 					</div>	
@@ -83,10 +83,8 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 	</div>
 	<jsp:include page="../../common/footer.jsp" />
 </div>
-
-</body>
-</html>
- <script>
+</div>
+<script>
 	function selectCourse() {		
 		if (true) {
 			var courseId = ${courseId};
@@ -107,3 +105,6 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 		}
 	}
 </script>
+</body>
+</html>
+ 

@@ -17,10 +17,10 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/homework.js"></script>
 </head>
 <body>
-	
+<div id="body_container">		
 	<div class="w1000">
 
-		<jsp:include page="../../common/navigation_menu.jsp" />
+		<jsp:include page="../../common/student_navigation_menu.jsp" />
 
 
 		<div class="cont">
@@ -107,6 +107,6 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
            
         <jsp:include page="../../common/footer.jsp" ></jsp:include>
     </div>
- 
+ </div>
 </body>
 </html>

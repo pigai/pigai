@@ -5,7 +5,6 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 <%@include file="../../common/init.jsp"%>
 
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
 
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -17,11 +16,11 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/course.js"></script>
 </head>
 <body>
-	
+<div id="body_container">		
 
 	<div class="w1000">
 
-		<jsp:include page="../../common/navigation.jsp" />
+			<jsp:include page="../../common/teacher_navigation_menu.jsp" />
 
 
 		<div class="cont">
@@ -77,17 +76,14 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 							<a href="javascript:void(0);" onclick="applySubmit();">提交</a>
 						</div>
 						</div>
-				</form>
-			
+				</form>			
 		</div>
 		</div>
 	</div>
 	<jsp:include page="../../common/footer.jsp" />
 </div>
-
-</body>
-</html>
-<script>
+</div>
+<script type="text/javascript">
 	function applySubmit() {		
 		if (true) {
 			var parm = $("#apply").serialize();
@@ -104,3 +100,5 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 		}
 		}
 </script>
+</body>
+</html>
