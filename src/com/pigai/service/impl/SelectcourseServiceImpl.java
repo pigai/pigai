@@ -35,4 +35,11 @@ SelectcourseService{
 		return (Selectcourse) commonDao.get(entityClass, primaryKey);
 	}
 
+	@Override
+	public Selectcourse getSelectcourseByCourseIdAndStudentId(Integer courseId,
+			Integer studentId) {
+		// TODO Auto-generated method stub
+		return selectcourseDao.getSelectcourseByCourseIdAndStudentId(courseId, studentId);
+	}
+
 }

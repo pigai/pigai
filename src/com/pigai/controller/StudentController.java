@@ -122,9 +122,14 @@ public class StudentController {
 			User user = (User)request.getSession().getAttribute("user");
 			Student student = studentService.getStudent(user.getUserId());
 			Course course = courseService.get(courseId);
-			Selectcourse selectcourse = new Selectcourse(course, student, 0, new Date(), course.getCourseName());
-			selectcourseService.add(selectcourse);
-			JSONUtil.outputSuccess("选课成功", response);
+			Selectcourse selectcourse0 = selectcourseService.getSelectcourseByCourseIdAndStudentId(courseId, user.getUserId());
+			if(selectcourse0 != null){
+				JSONUtil.outputError("您已选修此课程", response);
+			}else{
+				Selectcourse selectcourse = new Selectcourse(course, student, 0, new Date(), course.getCourseName());
+				selectcourseService.add(selectcourse);
+				JSONUtil.outputSuccess("选课成功", response);
+				}
 		} catch (Exception e) {
 			e.printStackTrace();
 			JSONUtil.outputError("选课失败", response);

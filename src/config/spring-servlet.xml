@@ -23,32 +23,19 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
     <context:component-scan base-package="com.pigai.controller"/>
     <!-- 静态资源访问 -->
     <mvc:resources location="/images/" mapping="/images/**" />
+    <mvc:resources location="/images/" mapping="/images/biaoqing/**" />
+	<mvc:resources location="/images/" mapping="/images/icon/**" />
+	<mvc:resources location="/images/" mapping="/images/rc/**" />
+	<mvc:resources location="/images/" mapping="/images/tab/**" />
+	<mvc:resources location="/images/" mapping="/images/tree/**" />
+	
     <mvc:resources location="/js/" mapping="/js/**"/>
+    <mvc:resources location="/js/" mapping="/js/plugin/**"/>
+    <mvc:resources location="/js/" mapping="/js/skins/**"/>
+    
     <mvc:resources location="/css/" mapping="/css/**"/>
-    
-    <!--图片验证码 -->
-    <bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">
-		<property name="config">
-			<bean class="com.google.code.kaptcha.util.Config">
-				<constructor-arg>
-					<props>
-						<prop key="kaptcha.border">no</prop>
-						<prop key="kaptcha.textproducer.font.color">blue</prop>
-						<prop key="kaptcha.image.width">100</prop>
-						<prop key="kaptcha.image.height">40</prop>
-						<prop key="kaptcha.textproducer.font.size">30</prop>
-						<prop key="kaptcha.textproducer.char.length">4</prop>
-						<prop key="kaptcha.textproducer.char.space">5</prop>
-						<prop key="kaptcha.background.clear.from">white</prop>
-						<prop key="kaptcha.background.clear.to">white</prop>
-						<prop key="kaptcha.noise.impl">com.google.code.kaptcha.impl.NoNoise</prop>
-					</props>
-				</constructor-arg>
-			</bean>
-		</property>
-	</bean>
-    
-    
+    <mvc:resources location="/css/" mapping="/css/skins/**"/>
+        
     
     <!--对模型视图名称的解析，即在模型视图名称添加前后缀 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" 
@@ -63,6 +50,24 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
           <!--resolveLazily属性启用是为了推迟文件解析，以便在UploadAction 中捕获文件大小异常-->  
           <property name="resolveLazily" value="true"/> 
     </bean> 
+    
+    <mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/teacher/course/**"/>
+			<mvc:mapping path="/teacher/courseware/**"/>
+			<mvc:mapping path="/teacher/homework/**"/>
+			<!-- 定义在mvc:interceptor下面的表示是对特定的请求才进行拦截的 -->
+			<bean class="com.pigai.interceptor.TeacherInterceptor"/>
+		</mvc:interceptor>
+		
+		<mvc:interceptor>
+			<mvc:mapping path="/student/course/**"/>
+			<mvc:mapping path="/student/courseware/**"/>
+			<mvc:mapping path="/student/homework/**"/>
+			<!-- 定义在mvc:interceptor下面的表示是对特定的请求才进行拦截的 -->
+			<bean class="com.pigai.interceptor.StudentInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
 </beans>
 
 
