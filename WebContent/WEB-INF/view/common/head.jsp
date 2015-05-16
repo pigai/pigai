@@ -15,6 +15,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/util.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/plugin/DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/plugin/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/util.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/artDialog.js?skin=default"></script> 
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/iframeTools.source.js"></script>
