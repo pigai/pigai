@@ -126,7 +126,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
     </div>
            
         <jsp:include page="../../common/footer.jsp" ></jsp:include>
-    </div>
+</div>
 </div> 
 </body>
 </html>

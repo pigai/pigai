@@ -20,7 +20,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 <body>
 <div id="body_container">	
 
-	<div class="w1000">
+	<div class="w1000" style="height:670px;">
 
 		<jsp:include page="../../common/teacher_navigation_menu.jsp" />
 
@@ -39,7 +39,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 					<span class="back">
 						<a href="${from_url eq null ? pageContext.request.contextPath : from_url }">&lt;&lt;返回</a></span>
 				</div>
-            <div class="repair_main">
+            <div class="repair_main" style="height:500px;">
             
 				<form id="apply"
 					action="${pageContext.request.contextPath}/teacher/course/add"
@@ -72,7 +72,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 							<dt>课程介绍 :</dt>
 							<dd>
 								<textarea name="courseIntr" id="courseIntr"  placeholder="请在此输入备注信息">${course.courseIntr }</textarea>
-								<script type="text/javascript">editor=CKEDITOR.replace('courseIntr',{height:300});</script>
+								<script type="text/javascript">editor=CKEDITOR.replace('courseIntr',{height:220});</script>
 							</dd>
 						</dl>
 						<div class="submit-btn" style="margin-left: 86px;">

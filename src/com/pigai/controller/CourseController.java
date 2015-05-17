@@ -1,6 +1,7 @@
 package com.pigai.controller;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -75,6 +76,7 @@ public class CourseController extends BaseController {
 						.getParameter("teacherId"));
 				Teacher teacher = teacherService.get(teacherId);
 				course.setTeacher(teacher);
+				course.setCreateTime(new Date());
 				courseService.add(course);
 			} else {
 				Course newCourse = courseService.get(course.getCourseId());
