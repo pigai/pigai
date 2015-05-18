@@ -56,12 +56,11 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 				var data = {"studentNo":studentNo,"password":password};
 				$.ajax({
 					type: "post",
-					url: "../student/login",
+					url: basePath()+"/student/login",
 					data: data,
 					success: function (msg) {
 						if (msg.status == true) {
-							location.href = "../student/course"; //如果登录成功则跳到管理界面
-							alert(msg.message);
+							location.href = basePath()+"/student/course"; //如果登录成功则跳到管理界面
 						}
 						if (msg.status == false) {
 							alert(msg.message);
@@ -85,7 +84,6 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 					success: function (msg) {
 						if (msg.status == true) {
 							location.href = "../teacher/course"; //如果登录成功则跳到管理界面
-							alert(msg.message);
 						}
 						if (msg.status == false) {
 							alert(msg.message);

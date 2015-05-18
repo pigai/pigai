@@ -7,6 +7,7 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -91,6 +92,16 @@ public class StudentController {
 			JSONUtil.outputError(Constants.USER_NOT_EXIST, response);
 		}		
 	}
+	@RequestMapping(value="/logout")
+	public String logoutDo(HttpServletRequest request)
+	{
+		HttpSession session=request.getSession();
+		if (session!=null)
+		{
+			session.invalidate();
+		}
+		return "forward:../home/homepage";
+	}
 
 	@RequestMapping(value="/info",method=RequestMethod.GET)
 	public String center(HttpServletRequest request){
@@ -144,6 +155,15 @@ public class StudentController {
 
 		return "student/course/index";
 	}
+	
+	@RequestMapping(value = "/studentCourse") 
+	public String studentCourse(PageModel pageModel, HttpServletRequest request){ 
+		User user = (User)request.getSession().getAttribute("user"); 
+		PageModel pageMoel = courseService.getPageModelByStudentId(pageModel, user.getUserId());
+		request.setAttribute("pageMoel",pageMoel); 
+		return "student/course/index";
+	 }
+	
 	@RequestMapping(value = "/course/detail/{id}", method = RequestMethod.GET)
 	public String toDetail(@PathVariable("id") Integer id,
 			HttpServletRequest request) {
