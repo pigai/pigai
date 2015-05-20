@@ -58,13 +58,14 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 							</dd>
 						</dl>
 						
-						</div>	
-					<div>
-						<span><h2>作业介绍 :</h2></span>
+							   <dl>
+							<dt>作业介绍</dt>
+							<dd>
+									${homework.introduction}
+							</dd>
+						</dl>
 						
-								${homework.introduction}
-							
-						</div>			
+						</div>						
 			
 		</div>
 		</div>

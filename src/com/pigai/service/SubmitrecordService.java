@@ -15,4 +15,6 @@ public interface SubmitrecordService extends BaseService<Submitrecord> {
 	public PageModel getPageModelByStudentId(PageModel pageModel,
 			Integer studentId);
 
+	public void updateScore(int score, Integer id) ;
+
 }

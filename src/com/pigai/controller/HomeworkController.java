@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.pigai.entity.Course;
 import com.pigai.entity.Homework;
+import com.pigai.entity.Selectcourse;
 import com.pigai.entity.Submitrecord;
 import com.pigai.service.CourseService;
 import com.pigai.service.HomeworkService;
+import com.pigai.service.SelectcourseService;
 import com.pigai.service.SubmitrecordService;
 import com.pigai.service.TeacherService;
 import com.pigai.util.CheckUtil;
@@ -43,6 +45,10 @@ public class HomeworkController extends BaseController {
 	@Autowired
 	@Qualifier("teacherService")
 	private TeacherService teacherService;
+
+	@Autowired
+	@Qualifier("selectcourseService")
+	private SelectcourseService selectcourseService;
 
 	@RequestMapping(value = "/add/{courseId}", method = RequestMethod.GET)
 	public String toAdd(@PathVariable("courseId") Integer courseId,
@@ -134,7 +140,8 @@ public class HomeworkController extends BaseController {
 		try {
 
 			request.setAttribute("homeworkId", id);
-			pageModel = submitrecordService.getPageModelByHomeWorkId(pageModel, id);
+			pageModel = submitrecordService.getPageModelByHomeWorkId(pageModel,
+					id);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -142,18 +149,23 @@ public class HomeworkController extends BaseController {
 		return "teacher/homework/submit_list";
 	}
 
+	@RequestMapping(value = "/grade/{id}", method = RequestMethod.GET)
+	public String toGrade(@PathVariable("id") Integer id, PageModel pageModel,
+			HttpServletRequest request, HttpServletResponse response) {
+		request.setAttribute("id", id);
+		return "teacher/homework/grade";
+	}
+
 	@RequestMapping(value = "/grade/{id}", method = RequestMethod.POST)
-	public String doGrade(@PathVariable("id") Integer id, PageModel pageModel,
+	public void doGrade(@PathVariable("id") Integer id, PageModel pageModel,
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			int score = Integer.parseInt(request.getParameter("score"));
-			Submitrecord submitrecord = submitrecordService.get(id);
-			submitrecord.setScore(score);
+			submitrecordService.updateScore(score,id);		
 			JSONUtil.outputSuccess("打分成功", response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "teacher/homework/submit";
+		
 	}
-
 }

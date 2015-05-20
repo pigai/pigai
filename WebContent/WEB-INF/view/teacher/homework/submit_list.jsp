@@ -14,7 +14,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>课程介绍</title>
 <%@include file="../../common/head.jsp"%>
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/homeworkSubmitVo.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/homework.js"></script>
 </head>
 <body>
 <div id="body_container">		
@@ -67,9 +67,10 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
                <td class="f_2"><fmt:formatDate value="${homeworkSubmitVo.createTime }"
 											pattern="yyyy-MM-dd HH:mm" /></td>
 											
-			   <td class="f_2">${homeworkSubmitVo.fileId }</td>
-			   <td class="f_2">${homeworkSubmitVo.submitId }</td>
-			   <td class="f_2">${homeworkSubmitVo.score }</td>
+			   <td class="f_2">
+			   <c:if test="${homeworkSubmitVo.submitId ne -1}"><a href="javascript:void(0);" onclick="goWithUrl('${pageContext.request.contextPath }/download/submitrecord/${homeworkSubmitVo.submitId}');">下载</a></c:if></td>			 
+			   <td class="f_2">${homeworkSubmitVo.submitId eq -1?'未提交':'已提交'  }</td>
+			   <td class="f_2">${homeworkSubmitVo.score eq -1? '未打分': homeworkSubmitVo.score }</td>
                                   	                                                   	                    								                  
                     	<td class="f_2">  
                     	                              

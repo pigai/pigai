@@ -67,7 +67,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 											pattern="yyyy-MM-dd HH:mm" /></td>
                                   	                                                   	                    								                  
                     	<td class="f_2">                                                        	                                                                                   
-                            	<a href="javascript:void(0);" onclick="goWithUrl('${pageContext.request.contextPath }/course/ware/download/${courseware.coursewareId}');">下载</a>                        	                            	
+                            	<a href="javascript:void(0);" onclick="goWithUrl('${pageContext.request.contextPath }/download/courseware/${courseware.coursewareId}');">下载</a>                        	                            	
                             </td>                            
                         </tr>   
              </c:forEach>

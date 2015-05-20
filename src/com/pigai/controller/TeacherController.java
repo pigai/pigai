@@ -77,16 +77,6 @@ public class TeacherController extends BaseController {
 			JSONUtil.outputError(Constants.USER_NOT_EXIST, response);
 		}
 	}
-	@RequestMapping(value="/logout")
-	public String logoutDo(HttpServletRequest request)
-	{
-		HttpSession session=request.getSession();
-		if (session!=null)
-		{
-			session.invalidate();
-		}
-		return "forward:../home/homepage";
-	}
 
 	@RequestMapping(value = "/info")
 	public String center(HttpServletRequest request) {
@@ -105,6 +95,18 @@ public class TeacherController extends BaseController {
 	public String updatepass() {
 		return "teacher/updatepassword";
 	}
+	
+	@RequestMapping(value="/logout")
+	public String logoutDo(HttpServletRequest request)
+	{
+		HttpSession session=request.getSession();
+		if (session!=null)
+		{
+			session.invalidate();
+		}
+		return "forward:../home/homepage";
+	}
+
 
 	@RequestMapping(value = "updatepassword", method = RequestMethod.POST)
 	public void updatepass(HttpServletRequest request,

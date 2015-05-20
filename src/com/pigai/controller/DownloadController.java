@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.pigai.entity.Courseware;
 import com.pigai.entity.Fileinfo;
 import com.pigai.entity.Submitrecord;
+import com.pigai.hadoop.HttpFSClient;
 import com.pigai.service.CoursewareService;
 import com.pigai.service.FileinfoService;
 import com.pigai.service.SubmitrecordService;
@@ -50,14 +51,18 @@ public class DownloadController {
 			Integer coursewareid = Integer.parseInt(coursewareId);
 			Courseware courseware = coursewareService.get(coursewareid);
 			Fileinfo fileinfo = fileinfoService.get(courseware.getFileinfo().getFileId());
-			String downLoadPath = ctxPath + fileinfo.getFileName();
+			//String downLoadPath = ctxPath + fileinfo.getFileName();
+			String downLoadPath = fileinfo.getFilePath();
+			
 			System.out.println("downLoadPath"+downLoadPath);
-			long fileLength = new File(downLoadPath).length();
 			response.setContentType("multipart/form-data");
 			response.setHeader("Content-disposition", "attachment; filename="
 					+ new String(fileinfo.getFileName().getBytes("utf-8"), "ISO8859-1"));
-			response.setHeader("Content-Length", String.valueOf(fileLength));
-			bis = new BufferedInputStream(new FileInputStream(downLoadPath));
+		//	response.setHeader("Content-Length", String.valueOf(fileLength));
+			HttpFSClient httpfsClient = new HttpFSClient();
+			httpfsClient.initCookie();
+			//bis = new BufferedInputStream(new FileInputStream(downLoadPath));
+			bis= new BufferedInputStream(httpfsClient.Download(downLoadPath));
 			bos = new BufferedOutputStream(response.getOutputStream());
 			byte[] buff = new byte[2048];
 			int bytesRead;
@@ -82,22 +87,25 @@ public class DownloadController {
 		request.setCharacterEncoding("UTF-8");
 		BufferedInputStream bis = null;
 		BufferedOutputStream bos = null;
-		String ctxPath = request.getSession().getServletContext()
+	/*	String ctxPath = request.getSession().getServletContext()
 				.getRealPath("/")+"\\upload\\";
-		System.out.println("ctxPath"+ctxPath);
+		System.out.println("ctxPath"+ctxPath);*/
 
 		try {
 			Integer submitrecordid = Integer.parseInt(submitrecordId);
 			Submitrecord  submitrecord = submitrecordService.get(submitrecordid);
 			Fileinfo fileinfo = fileinfoService.get(submitrecord.getFileinfo().getFileId());
-			String downLoadPath = ctxPath + fileinfo.getFileName();
-			System.out.println("downLoadPath"+downLoadPath);
-			long fileLength = new File(downLoadPath).length();
+			String downLoadPath = fileinfo.getFilePath();
+			System.out.println("downLoadPath:"+downLoadPath);
+		//	long fileLength = new File(downLoadPath).length();
 			response.setContentType("multipart/form-data");
 			response.setHeader("Content-disposition", "attachment; filename="
 					+ new String(fileinfo.getFileName().getBytes("utf-8"), "ISO8859-1"));
-			response.setHeader("Content-Length", String.valueOf(fileLength));
-			bis = new BufferedInputStream(new FileInputStream(downLoadPath));
+		//	response.setHeader("Content-Length", String.valueOf(fileLength));
+			HttpFSClient httpfsClient = new HttpFSClient();
+			httpfsClient.initCookie();
+			//bis = new BufferedInputStream(new FileInputStream(downLoadPath));
+			bis= new BufferedInputStream(httpfsClient.Download(downLoadPath));
 			bos = new BufferedOutputStream(response.getOutputStream());
 			byte[] buff = new byte[2048];
 			int bytesRead;
@@ -115,4 +123,5 @@ public class DownloadController {
 		return;
 	}
 
+	
 }

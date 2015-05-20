@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.pigai.entity.Course;
 import com.pigai.entity.Courseware;
 import com.pigai.entity.Fileinfo;
+import com.pigai.hadoop.HttpFSClient;
 import com.pigai.service.CourseService;
 import com.pigai.service.CoursewareService;
 import com.pigai.service.FileinfoService;
@@ -65,39 +66,51 @@ public class CoursewareController extends BaseController {
 		return "teacher/courseware/add";
 	}
 
-
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public void doAdd(			
-			HttpServletRequest request, HttpServletResponse response,
+	public void doAdd(HttpServletRequest request, HttpServletResponse response,
 			Courseware courseware) throws IOException {
 		try {
 			Integer courseId = Integer.parseInt(request
-					.getParameter("courseId"));			
-			System.out.println("开始");
+					.getParameter("courseId"));
 			String path = request.getSession().getServletContext()
-					.getRealPath("/upload/");
-			 MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-			 MultipartFile file = multipartRequest.getFile("file");
-			String fileName = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date())+file.getOriginalFilename();
+					.getRealPath("/courseware/");
+			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+			MultipartFile file = multipartRequest.getFile("file");
+			String hdfsFileName = new SimpleDateFormat("yyyyMMddHHmmss")
+					.format(new Date())
+					+ file.getOriginalFilename().substring(
+							file.getOriginalFilename().lastIndexOf("."));
 			Fileinfo fileinfo = new Fileinfo();
-			fileinfo.setFileName(fileName);
-			fileinfo.setFilePath("/upload/"+fileName);
+			fileinfo.setFileName(file.getOriginalFilename());
+			fileinfo.setFilePath("/courseware/" + hdfsFileName);
 			fileinfo.setCreateTime(new Date());
-			File targetFile = new File(path, fileName);
+			File targetFile = new File(path, hdfsFileName);
 			if (!targetFile.exists()) {
 				targetFile.mkdirs();
 			}
 			// 保存
 			file.transferTo(targetFile);
+			HttpFSClient httpfsClient = new HttpFSClient();
+			httpfsClient.initCookie();
+			// 获取当前用户的目录
+			httpfsClient.get("", "op=gethomedirectory");
+			// // 上传文件
+			httpfsClient.put("/courseware", "op=CREATE&buffersize=1000");
+			httpfsClient.upload("/courseware/" + hdfsFileName,
+					"op=CREATE&buffersize=1000&data=true",
+					targetFile.getAbsolutePath());
+			// 获取文件列表信息
+			String result = httpfsClient.get("/courseware", "op=LISTSTATUS");
 			fileinfoService.add(fileinfo);
 			System.out.println(path);
-			
 			Course course = courseService.get(courseId);
-			courseware.setCourse(course);			
+			courseware.setCourse(course);
 			courseware.setFileinfo(fileinfo);
 			courseware.setCreateTime(new Date());
 			coursewareService.add(courseware);
+			targetFile.delete();
 			JSONUtil.outputSuccess("添加成功", response);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			JSONUtil.outputError("添加失败", response);
