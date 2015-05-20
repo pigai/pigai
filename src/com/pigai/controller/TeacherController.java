@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -75,6 +76,16 @@ public class TeacherController extends BaseController {
 		} else {
 			JSONUtil.outputError(Constants.USER_NOT_EXIST, response);
 		}
+	}
+	@RequestMapping(value="/logout")
+	public String logoutDo(HttpServletRequest request)
+	{
+		HttpSession session=request.getSession();
+		if (session!=null)
+		{
+			session.invalidate();
+		}
+		return "forward:../home/homepage";
 	}
 
 	@RequestMapping(value = "/info")

@@ -116,13 +116,13 @@ public class StudentController {
 		return "student/updatePassword";
 	}
 	@RequestMapping(value = "updatePassword",method=RequestMethod.POST)
-	public void updatePass(HttpServletRequest request,HttpServletResponse response,String oldpassword,String newpassword) throws IOException{
+	public void updatePass(HttpServletRequest request,HttpServletResponse response,String oldPassword,String newPassword) throws IOException{
 		User user = (User)request.getSession().getAttribute("user");
-		Student student = studentService.findStudent(user.getUserNo(),oldpassword);
+		Student student = studentService.findStudent(user.getUserNo(),oldPassword);
 		if(student == null){
 			JSONUtil.outputError(Constants.PASSWORD_IS_WRONG, response);
 		}else{
-			studentService.updateStudent(student, newpassword);
+			studentService.updateStudent(student, newPassword);
 			JSONUtil.outputSuccess(Constants.UPDATE_SECCESS, response);	
 		}				
 	}

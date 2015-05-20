@@ -22,7 +22,7 @@ request.setAttribute("CURRENTUSER", request.getSession().getAttribute("user"));
 		<div class="cont">
 			<div class="current-position">
 				<span class="font14"> 当前位置：<a href="${pageContext.request.contextPath }/">首页</a> &gt;&gt; 
-					<a href="">修改密码（快去改我的链接不对哒）</a></span>
+					<a href="">修改密码</a></span>
 					
 			</div>
 
